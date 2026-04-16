@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  school.database:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: school.database
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong!Passw0rd
+      - MSSQL_PID=Express
+      - MSSQL_AGENT_ENABLED=true
+      - MSSQL_LCID=1058
+      - TZ=Europe/Kyiv
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql-data:/var/opt/mssql
+    networks:
+      - mssql-network
+
+volumes:
+  mssql-data:
+    driver: local
+
+networks:
+  mssql-network:
+    driver: bridge

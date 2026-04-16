@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: school-manager-backend
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://localhost:1433;databaseName=School;trustServerCertificate=true
+    username: sa
+    password: YourStrong!Passw0rd
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:database/migration
+logging:
+  level:
+    org.flywaydb: trace
+    org.springframework.jdbc: trace
