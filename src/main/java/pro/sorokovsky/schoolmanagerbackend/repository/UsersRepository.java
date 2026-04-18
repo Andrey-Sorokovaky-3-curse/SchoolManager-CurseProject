@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class UserRepository {
+public class UsersRepository {
     private final JdbcTemplate jdbcTemplate;
     private final UserRowMapper rowMapper;
 
@@ -83,8 +83,8 @@ public class UserRepository {
         }
     }
 
-    public void delete(@NonNull User user) {
-        if (jdbcTemplate.update(UserSql.DELETE_SQL, user.getId()) == 0) {
+    public void delete(Long id) {
+        if (jdbcTemplate.update(UserSql.DELETE_SQL, id) == 0) {
             throw new UserNotFoundException();
         }
     }
