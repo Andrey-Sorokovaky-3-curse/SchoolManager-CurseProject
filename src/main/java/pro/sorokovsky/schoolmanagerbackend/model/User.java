@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -18,7 +18,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String middleName;
-    private Date birthday;
+    private LocalDate birthday;
     private Gender gender;
     private String address;
 }
