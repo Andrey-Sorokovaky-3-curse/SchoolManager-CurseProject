@@ -1,6 +1,7 @@
 package pro.sorokovsky.schoolmanagerbackend.mapper;
 
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -9,12 +10,14 @@ import pro.sorokovsky.schoolmanagerbackend.model.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class UserRowMapper implements RowMapper<User> {
     @Override
-    public @Nullable User mapRow(ResultSet table, int rowNum) throws SQLException {
+    public @Nullable User mapRow(@NonNull ResultSet table, int rowNum) throws SQLException {
         return User
                 .builder()
                 .id(table.getLong("Id"))
@@ -26,6 +29,7 @@ public class UserRowMapper implements RowMapper<User> {
                 .middleName(table.getString("MiddleName"))
                 .birthday(table.getDate("birthday"))
                 .address(table.getString("Address"))
+                .authorities(new LinkedList<>())
                 .build();
     }
 }

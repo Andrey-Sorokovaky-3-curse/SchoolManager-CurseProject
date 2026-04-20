@@ -24,7 +24,8 @@ public class ExceptionHandlerControllerAdvice {
             @NonNull MethodArgumentNotValidException exception,
             Locale locale
     ) {
-        final var message = messageSource.getMessage("errors.bad-request", new Object[0], locale);
+        final var defaultMessage = messageSource.getMessage(exception.getMessage(), new Object[0], Locale.getDefault());
+        final var message = messageSource.getMessage("errors.bad-request", new Object[0], defaultMessage, locale);
         final var problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, message);
         problemDetail.setTitle(message);
         final var errors = exception.getBindingResult().getFieldErrors();
@@ -38,7 +39,8 @@ public class ExceptionHandlerControllerAdvice {
 
     @ExceptionHandler(HttpException.class)
     public ResponseEntity<ProblemDetail> handleHttpException(@NonNull HttpException exception, Locale locale) {
-        final var message = messageSource.getMessage(exception.getMessage(), new Object[0], locale);
+        final var defaultMessage = messageSource.getMessage(exception.getMessage(), new Object[0], Locale.getDefault());
+        final var message = messageSource.getMessage(exception.getMessage(), new Object[0], defaultMessage, locale);
         final var problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, message);
         problemDetail.setTitle(message);
         return ResponseEntity.status(exception.getStatusCode()).body(problemDetail);

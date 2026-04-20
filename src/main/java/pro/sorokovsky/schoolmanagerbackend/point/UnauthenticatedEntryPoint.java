@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 @RequiredArgsConstructor
 @Component
@@ -33,7 +34,8 @@ public class UnauthenticatedEntryPoint implements AuthenticationEntryPoint {
         final var locale = request.getLocale();
         final var message = authException.getLocalizedMessage();
         final var details = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, message);
-        details.setTitle(messageSource.getMessage("errors.unauthorized", new Object[0], locale));
+        final var defaultMessage = messageSource.getMessage("errors.unauthorized", new Object[0], Locale.getDefault());
+        details.setTitle(messageSource.getMessage("errors.unauthorized", new Object[0], defaultMessage, locale));
         final var mapper = new ObjectMapper();
         response.setHeader(HttpHeaders.WWW_AUTHENTICATE, "Bearer");
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
