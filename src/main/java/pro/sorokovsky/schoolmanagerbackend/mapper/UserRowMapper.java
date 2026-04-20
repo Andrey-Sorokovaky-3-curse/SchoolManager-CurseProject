@@ -21,7 +21,7 @@ public class UserRowMapper implements RowMapper<User> {
                 .login(table.getString("Login"))
                 .password(table.getString("Password"))
                 .firstName(table.getString("FirstName"))
-                .gender(table.getBoolean("Gender") ? Gender.MALE : Gender.FEMALE)
+                .gender(Gender.fromValue(table.getBoolean("Gender")))
                 .lastName(table.getString("LastName"))
                 .middleName(table.getString("MiddleName"))
                 .birthday(table.getDate("birthday"))

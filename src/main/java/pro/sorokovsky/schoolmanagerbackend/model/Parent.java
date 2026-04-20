@@ -1,10 +1,11 @@
 package pro.sorokovsky.schoolmanagerbackend.model;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Parent extends User {

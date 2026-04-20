@@ -1,6 +1,7 @@
 package pro.sorokovsky.schoolmanagerbackend.model;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
@@ -8,7 +9,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 public class Employee extends User {
     private String phoneNumber;
     private List<Position> positions;

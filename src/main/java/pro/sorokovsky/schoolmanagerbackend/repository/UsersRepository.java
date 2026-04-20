@@ -49,7 +49,7 @@ public class UsersRepository {
                 preparedStatement.setString(4, user.getLastName());
                 preparedStatement.setString(5, user.getMiddleName());
                 preparedStatement.setObject(6, user.getBirthday());
-                preparedStatement.setBoolean(7, user.getGender() == Gender.MALE);
+                preparedStatement.setBoolean(7, user.getGender().getValue());
                 preparedStatement.setString(8, user.getAddress());
                 return preparedStatement;
             }, keyHolder);
@@ -63,7 +63,6 @@ public class UsersRepository {
     }
 
     public User update(@NonNull User user) {
-        final var genderBit = user.getGender() == Gender.MALE;
         final var rowsAffected = jdbcTemplate.update(
                 UserSql.UPDATE_SQL,
                 user.getLogin(),
@@ -72,7 +71,7 @@ public class UsersRepository {
                 user.getLastName(),
                 user.getMiddleName(),
                 user.getBirthday(),
-                genderBit,
+                user.getGender(),
                 user.getAddress(),
                 user.getId()
         );
