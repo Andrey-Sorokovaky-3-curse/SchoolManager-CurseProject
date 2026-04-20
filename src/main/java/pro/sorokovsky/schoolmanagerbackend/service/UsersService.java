@@ -2,6 +2,9 @@ package pro.sorokovsky.schoolmanagerbackend.service;
 
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pro.sorokovsky.schoolmanagerbackend.contract.CreateUser;
@@ -12,7 +15,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UsersService {
+public class UsersService implements UserDetailsService {
     private final UsersRepository repository;
     private final PasswordEncoder passwordEncoder;
 
@@ -45,5 +48,11 @@ public class UsersService {
 
     public void delete(Long id) {
         repository.delete(id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return repository.findByLogin(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
     }
 }

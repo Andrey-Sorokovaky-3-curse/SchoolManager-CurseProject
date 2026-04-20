@@ -27,11 +27,7 @@ public class User implements UserDetails {
     private Date birthday;
     private Gender gender;
     private String address;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
-    }
+    private List<GrantedAuthority> authorities = new LinkedList<>();
 
     @Override
     public String getUsername() {

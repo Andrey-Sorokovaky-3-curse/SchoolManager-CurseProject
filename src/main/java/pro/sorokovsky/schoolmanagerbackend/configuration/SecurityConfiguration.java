@@ -16,6 +16,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(@NonNull HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
                 .requestMatchers("/swagger-ui/**", "/v3/**").permitAll()
+                .requestMatchers("/authorization/login", "/authorization/register").anonymous()
                 .anyRequest().authenticated()
         );
         http.cors(AbstractHttpConfigurer::disable);
