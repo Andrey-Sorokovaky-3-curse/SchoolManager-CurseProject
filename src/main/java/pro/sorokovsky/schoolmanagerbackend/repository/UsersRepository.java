@@ -108,7 +108,7 @@ public class UsersRepository {
                 break;
             }
             case "Employee": {
-                sql = "SELECT * FROM Users u JOIN dbo.Employees e on u.Id = e.UserId WHERE u.Id = ?;";
+                sql = "SELECT u.*, e.* FROM Users u JOIN dbo.Employees e on u.Id = e.UserId WHERE u.Id = ?;";
                 break;
             }
             default: {
