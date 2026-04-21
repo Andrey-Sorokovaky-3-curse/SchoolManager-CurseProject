@@ -1,17 +1,12 @@
 package pro.sorokovsky.schoolmanagerbackend.contract;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import pro.sorokovsky.schoolmanagerbackend.model.Gender;
 
 import java.sql.Date;
 
-@Schema(description = "Сутність для створення користувача", requiredMode = Schema.RequiredMode.REQUIRED)
-public record CreateUser(
-        @NotBlank(message = "{errors.user.login.none}")
-        @Size(message = "{errors.user.login.size}", max = 50)
+@Schema(description = "Сутність для отримання користувача", requiredMode = Schema.RequiredMode.REQUIRED)
+public record GetUser(
         @Schema(
                 description = "Логін користувача",
                 example = "andrey",
@@ -20,8 +15,6 @@ public record CreateUser(
         )
         String login,
 
-        @NotBlank(message = "{errors.user.password.none}")
-        @Size(message = "{errors.user.password.size}", max = 300)
         @Schema(
                 description = "Пароль користувача",
                 example = "<PASSWORD>",
@@ -30,8 +23,6 @@ public record CreateUser(
         )
         String password,
 
-        @NotBlank(message = "{errors.user.first-name.none}")
-        @Size(message = "{errors.user.first-name.size}", max = 50)
         @Schema(
                 description = "Ім'я користувача",
                 example = "Андрій",
@@ -40,8 +31,6 @@ public record CreateUser(
         )
         String firstName,
 
-        @NotBlank(message = "{errors.user.last-name.none}")
-        @Size(message = "{errors.user.last-name.size}", max = 50)
         @Schema(
                 description = "Прізвище користувача",
                 example = "Сороковський",
@@ -50,8 +39,6 @@ public record CreateUser(
         )
         String lastName,
 
-        @NotBlank(message = "{errors.user.middle-name.none}")
-        @Size(message = "{errors.user.middle-name.size}", max = 50)
         @Schema(
                 description = "По батькові користувача",
                 example = "Іванович",
@@ -60,7 +47,6 @@ public record CreateUser(
         )
         String middleName,
 
-        @NotNull(message = "{errors.user.birthday.none}")
         @Schema(
                 description = "день народження користувача",
                 example = "2004-08-09",
@@ -70,15 +56,12 @@ public record CreateUser(
         )
         Date birthday,
 
-        @NotNull(message = "{errors.user.gender.none}")
         @Schema(
                 description = "Стать користувача",
                 requiredMode = Schema.RequiredMode.REQUIRED
         )
         Gender gender,
 
-        @NotBlank(message = "{errors.user.address.none}")
-        @Size(message = "{errors.user.address.size}", max = 200)
         @Schema(
                 description = "Адреса користувача",
                 example = "м. Хмельницький, вул. Пілотська 76",

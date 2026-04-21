@@ -11,7 +11,6 @@ import pro.sorokovsky.schoolmanagerbackend.model.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -27,7 +26,7 @@ public class UserRowMapper implements RowMapper<User> {
                 .gender(Gender.fromValue(table.getBoolean("Gender")))
                 .lastName(table.getString("LastName"))
                 .middleName(table.getString("MiddleName"))
-                .birthday(table.getDate("birthday"))
+                .birthday(table.getDate("Birthday"))
                 .address(table.getString("Address"))
                 .authorities(new LinkedList<>())
                 .build();
