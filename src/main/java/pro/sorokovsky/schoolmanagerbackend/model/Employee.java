@@ -5,12 +5,12 @@ import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode()
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Employee extends User {
+public class Employee {
     private String phoneNumber;
     private List<Position> positions;
 }
