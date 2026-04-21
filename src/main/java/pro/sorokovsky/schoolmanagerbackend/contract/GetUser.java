@@ -8,6 +8,13 @@ import java.sql.Date;
 @Schema(description = "Сутність для отримання користувача", requiredMode = Schema.RequiredMode.REQUIRED)
 public record GetUser(
         @Schema(
+                description = "Унікальний ідентифікатор користувача",
+                example = "1",
+                requiredMode = Schema.RequiredMode.REQUIRED
+        )
+        Long id,
+
+        @Schema(
                 description = "Логін користувача",
                 example = "andrey",
                 requiredMode = Schema.RequiredMode.REQUIRED,

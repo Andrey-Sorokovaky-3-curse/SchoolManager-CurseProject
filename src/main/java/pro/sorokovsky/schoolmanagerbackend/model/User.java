@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import pro.sorokovsky.schoolmanagerbackend.contract.GetUser;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -32,5 +33,19 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return login;
+    }
+
+    public GetUser toGet() {
+        return new GetUser(
+                id,
+                login,
+                password,
+                firstName,
+                lastName,
+                middleName,
+                birthday,
+                gender,
+                address
+        );
     }
 }

@@ -162,8 +162,8 @@ public class AuthorizationController {
             )
     })
     @GetMapping("profile")
-    public ResponseEntity<User> getProfile(@AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(user);
+    public ResponseEntity<GetUser> getProfile(@AuthenticationPrincipal @NonNull User user) {
+        return ResponseEntity.ok(user.toGet());
     }
 
     @Operation(summary = "Вихід", description = "Вихід користувача із системи.")
