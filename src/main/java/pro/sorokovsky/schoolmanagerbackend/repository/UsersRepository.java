@@ -5,8 +5,8 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import pro.sorokovsky.schoolmanagerbackend.exception.user.UserAlreadyExistsException;
 import pro.sorokovsky.schoolmanagerbackend.exception.user.UserNotFoundException;
 import pro.sorokovsky.schoolmanagerbackend.mapper.UserRowMapper;
@@ -22,6 +22,7 @@ public class UsersRepository {
     private final JdbcTemplate jdbcTemplate;
     private final UserRowMapper rowMapper;
 
+    @Transactional(readOnly = true)
     public Optional<User> findByLogin(String login) {
         try {
             return Optional.ofNullable(jdbcTemplate.queryForObject(UserSql.SELECT_BY_LOGIN, rowMapper, login));
@@ -32,8 +33,8 @@ public class UsersRepository {
 
     public Optional<User> findById(Long id) {
         try {
-            final var user = Optional.ofNullable(jdbcTemplate.queryForObject(UserSql.SELECT_BY_ID, rowMapper, id));
-            return user.map(this::loadUser);
+
+            return Optional.ofNullable(jdbcTemplate.queryForObject(UserSql.SELECT_BY_ID, rowMapper, id));
         } catch (EmptyResultDataAccessException exception){
             return Optional.empty();
         }
@@ -63,6 +64,7 @@ public class UsersRepository {
         }
     }
 
+    @Transactional
     public User update(@NonNull User user) {
         final var rowsAffected = jdbcTemplate.update(
                 UserSql.UPDATE_SQL,
@@ -87,34 +89,5 @@ public class UsersRepository {
         if (jdbcTemplate.update(UserSql.DELETE_SQL, id) == 0) {
             throw new UserNotFoundException();
         }
-    }
-
-    private User loadUser(User user) {
-        final var role = user.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .filter(authority -> authority.startsWith("ROLE_"))
-                .map(authority -> authority.replace("ROLE_", ""))
-                .findFirst().orElse("User");
-        String sql;
-        switch (role) {
-            case "Parent":
-            {
-                sql = "SELECT u.Login, p.PhoneNumber FROM Users u JOIN Parents p ON u.Id = p.UserId WHERE u.Id = ?;";
-                break;
-            }
-            case "Pupil":
-            {
-                sql = "SELECT u.*, p.* FROM Users u JOIN Pupils p ON u.Id = p.UserId WHERE u.Id = ?;";
-                break;
-            }
-            case "Employee": {
-                sql = "SELECT u.*, e.* FROM Users u JOIN dbo.Employees e on u.Id = e.UserId WHERE u.Id = ?;";
-                break;
-            }
-            default: {
-                return user;
-            }
-        }
-        return jdbcTemplate.queryForObject(sql, rowMapper);
     }
 }
