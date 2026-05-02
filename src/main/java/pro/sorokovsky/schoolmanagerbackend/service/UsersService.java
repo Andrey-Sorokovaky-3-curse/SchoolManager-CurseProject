@@ -43,7 +43,7 @@ public class UsersService implements UserDetailsService {
     }
 
     public User update(User user) {
-        return repository.update(user);
+        return repository.update(user, user.getId());
     }
 
     public void delete(Long id) {

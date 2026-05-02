@@ -2,14 +2,14 @@ package pro.sorokovsky.schoolmanagerbackend.exception.base;
 
 import org.springframework.http.HttpStatus;
 
-public class NotFountException extends HttpException {
+public class NotFoundException extends HttpException {
     private static final HttpStatus STATUS = HttpStatus.NOT_FOUND;
 
-    public NotFountException(String messageCode, Throwable cause) {
+    public NotFoundException(String messageCode, Throwable cause) {
         super(messageCode, STATUS, cause);
     }
 
-    public NotFountException(String messageCode) {
+    public NotFoundException(String messageCode) {
         super(messageCode, STATUS);
     }
 }

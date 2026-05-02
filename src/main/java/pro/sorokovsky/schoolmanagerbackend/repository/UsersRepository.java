@@ -1,24 +1,28 @@
 package pro.sorokovsky.schoolmanagerbackend.repository;
 import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.NonNull;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import pro.sorokovsky.schoolmanagerbackend.exception.base.ConflictException;
+import pro.sorokovsky.schoolmanagerbackend.exception.base.NotFoundException;
 import pro.sorokovsky.schoolmanagerbackend.exception.user.UserAlreadyExistsException;
 import pro.sorokovsky.schoolmanagerbackend.exception.user.UserNotFoundException;
 import pro.sorokovsky.schoolmanagerbackend.mapper.UserRowMapper;
 import pro.sorokovsky.schoolmanagerbackend.model.User;
+import pro.sorokovsky.schoolmanagerbackend.repository.sql.CrudRepository;
 import pro.sorokovsky.schoolmanagerbackend.repository.sql.UserSql;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class UsersRepository {
+public class UsersRepository extends CrudRepository<User> {
     private final JdbcTemplate jdbcTemplate;
     private final UserRowMapper rowMapper;
 
@@ -31,63 +35,58 @@ public class UsersRepository {
         }
     }
 
-    public Optional<User> findById(Long id) {
-        try {
-
-            return Optional.ofNullable(jdbcTemplate.queryForObject(UserSql.SELECT_BY_ID, rowMapper, id));
-        } catch (EmptyResultDataAccessException exception){
-            return Optional.empty();
-        }
+    @Override
+    protected String getByIdSql() {
+        return UserSql.SELECT_BY_ID;
     }
 
-    public User create(User user) {
-        try {
-            final var keyHolder = new GeneratedKeyHolder();
-            jdbcTemplate.update(connection -> {
-                final var preparedStatement = connection.prepareStatement(UserSql.INSERT_USER, Statement.RETURN_GENERATED_KEYS);
-                preparedStatement.setString(1, user.getLogin());
-                preparedStatement.setString(2, user.getPassword());
-                preparedStatement.setString(3, user.getFirstName());
-                preparedStatement.setString(4, user.getLastName());
-                preparedStatement.setString(5, user.getMiddleName());
-                preparedStatement.setObject(6, user.getBirthday());
-                preparedStatement.setBoolean(7, user.getGender().getValue());
-                preparedStatement.setString(8, user.getAddress());
-                return preparedStatement;
-            }, keyHolder);
-            final var newId = Optional.ofNullable(keyHolder.getKey())
-                    .map(Number::longValue)
-                    .orElseThrow(UserNotFoundException::new);
-            return findById(newId).orElseThrow();
-        } catch (DuplicateKeyException exception) {
-            throw new UserAlreadyExistsException();
-        }
+    @Override
+    protected RowMapper<User> mapper() {
+        return rowMapper;
     }
 
-    @Transactional
-    public User update(@NonNull User user) {
-        final var rowsAffected = jdbcTemplate.update(
-                UserSql.UPDATE_SQL,
-                user.getLogin(),
-                user.getPassword(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getMiddleName(),
-                user.getBirthday(),
-                user.getGender(),
-                user.getAddress(),
-                user.getId()
-        );
-        if (rowsAffected > 0) {
-            return findById(user.getId()).orElseThrow(UserNotFoundException::new);
-        } else {
-            throw new UserNotFoundException();
-        }
+    @Override
+    protected JdbcTemplate jdbcTemplate() {
+        return jdbcTemplate;
     }
 
-    public void delete(Long id) {
-        if (jdbcTemplate.update(UserSql.DELETE_SQL, id) == 0) {
-            throw new UserNotFoundException();
-        }
+    @Override
+    protected PreparedStatement prepareCreatingStatement(Connection connection, User user) throws SQLException {
+        final var statement = connection.prepareStatement(UserSql.INSERT_USER, Statement.RETURN_GENERATED_KEYS);
+        return fillupStatement(statement, user);
+    }
+
+    @Override
+    protected PreparedStatement prepareUpdatingStatement(Connection connection, User user) throws SQLException {
+        final var statement = fillupStatement(connection.prepareStatement(UserSql.UPDATE_SQL, Statement.RETURN_GENERATED_KEYS), user);
+        statement.setLong(9, user.getId());
+        return statement;
+    }
+
+    @Override
+    protected NotFoundException notFoundException() {
+        return new UserNotFoundException();
+    }
+
+    @Override
+    protected ConflictException alreadyExistsException() {
+        return new UserAlreadyExistsException();
+    }
+
+    @Override
+    protected String deleteByIdSql() {
+        return UserSql.DELETE_SQL;
+    }
+
+    private PreparedStatement fillupStatement(PreparedStatement statement, User user) throws SQLException {
+        statement.setString(1, user.getLogin());
+        statement.setString(2, user.getPassword());
+        statement.setString(3, user.getFirstName());
+        statement.setString(4, user.getLastName());
+        statement.setString(5, user.getMiddleName());
+        statement.setObject(6, user.getBirthday());
+        statement.setBoolean(7, user.getGender().getValue());
+        statement.setString(8, user.getAddress());
+        return statement;
     }
 }
