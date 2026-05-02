@@ -1,4 +1,4 @@
-package pro.sorokovsky.schoolmanagerbackend.repository.sql;
+package pro.sorokovsky.schoolmanagerbackend.repository;
 
 import org.jspecify.annotations.NonNull;
 import org.springframework.dao.DuplicateKeyException;

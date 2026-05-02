@@ -11,8 +11,6 @@ import pro.sorokovsky.schoolmanagerbackend.exception.user.UserAlreadyExistsExcep
 import pro.sorokovsky.schoolmanagerbackend.exception.user.UserNotFoundException;
 import pro.sorokovsky.schoolmanagerbackend.mapper.UserRowMapper;
 import pro.sorokovsky.schoolmanagerbackend.model.User;
-import pro.sorokovsky.schoolmanagerbackend.repository.sql.CrudRepository;
-import pro.sorokovsky.schoolmanagerbackend.repository.sql.UserSql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,13 +21,27 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class UsersRepository extends CrudRepository<User> {
+    private static final String SELECT_FIELDS =
+            "Id, Login, Password, FirstName, LastName, MiddleName, Birthday, Gender, Address";
+    private static final String INSERT_FIELDS =
+            "Login, Password, FirstName, LastName, MiddleName, Birthday, Gender, Address";
+    private static final String SELECT_BASE = "SELECT %s FROM Users".formatted(SELECT_FIELDS);
+    private static final String SELECT_BY_ID = "%s WHERE Id = ?".formatted(SELECT_BASE);
+    private static final String SELECT_BY_LOGIN = "%s WHERE Login = ?".formatted(SELECT_BASE);
+    private static final String INSERT_USER = "INSERT INTO Users(%s) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+            .formatted(INSERT_FIELDS);
+    private static final String UPDATE_SQL =
+            "UPDATE Users SET Login=?, Password=?, FirstName=?, LastName=?, " +
+                    "MiddleName=?, Birthday=?, Gender=?, Address=? WHERE Id=?";
+    private static final String DELETE_SQL = "DELETE FROM Users WHERE Id=?";
+    
     private final JdbcTemplate jdbcTemplate;
     private final UserRowMapper rowMapper;
 
     @Transactional(readOnly = true)
     public Optional<User> findByLogin(String login) {
         try {
-            return Optional.ofNullable(jdbcTemplate.queryForObject(UserSql.SELECT_BY_LOGIN, rowMapper, login));
+            return Optional.ofNullable(jdbcTemplate.queryForObject(SELECT_BY_LOGIN, rowMapper, login));
         } catch (EmptyResultDataAccessException exception) {
             return Optional.empty();
         }
@@ -37,7 +49,7 @@ public class UsersRepository extends CrudRepository<User> {
 
     @Override
     protected String getByIdSql() {
-        return UserSql.SELECT_BY_ID;
+        return SELECT_BY_ID;
     }
 
     @Override
@@ -52,13 +64,13 @@ public class UsersRepository extends CrudRepository<User> {
 
     @Override
     protected PreparedStatement prepareCreatingStatement(Connection connection, User user) throws SQLException {
-        final var statement = connection.prepareStatement(UserSql.INSERT_USER, Statement.RETURN_GENERATED_KEYS);
+        final var statement = connection.prepareStatement(INSERT_USER, Statement.RETURN_GENERATED_KEYS);
         return fillupStatement(statement, user);
     }
 
     @Override
     protected PreparedStatement prepareUpdatingStatement(Connection connection, User user) throws SQLException {
-        final var statement = fillupStatement(connection.prepareStatement(UserSql.UPDATE_SQL, Statement.RETURN_GENERATED_KEYS), user);
+        final var statement = fillupStatement(connection.prepareStatement(UPDATE_SQL, Statement.RETURN_GENERATED_KEYS), user);
         statement.setLong(9, user.getId());
         return statement;
     }
@@ -75,7 +87,7 @@ public class UsersRepository extends CrudRepository<User> {
 
     @Override
     protected String deleteByIdSql() {
-        return UserSql.DELETE_SQL;
+        return DELETE_SQL;
     }
 
     private PreparedStatement fillupStatement(PreparedStatement statement, User user) throws SQLException {

@@ -10,7 +10,6 @@ import pro.sorokovsky.schoolmanagerbackend.exception.requirement.RequirementAlre
 import pro.sorokovsky.schoolmanagerbackend.exception.requirement.RequirementNotFoundException;
 import pro.sorokovsky.schoolmanagerbackend.mapper.RequirementRowMapper;
 import pro.sorokovsky.schoolmanagerbackend.model.Requirement;
-import pro.sorokovsky.schoolmanagerbackend.repository.sql.CrudRepository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
