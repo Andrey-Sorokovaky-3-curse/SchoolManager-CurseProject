@@ -7,9 +7,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.transaction.annotation.Transactional;
-import pro.sorokovsky.schoolmanagerbackend.exception.base.ConflictException;
+import pro.sorokovsky.schoolmanagerbackend.exception.base.AlreadyExistsException;
 import pro.sorokovsky.schoolmanagerbackend.exception.base.NotFoundException;
-import pro.sorokovsky.schoolmanagerbackend.exception.user.UserNotFoundException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -64,7 +63,7 @@ public abstract class CrudRepository<Model> {
     protected abstract PreparedStatement prepareUpdatingStatement(Connection connection, Model model) throws SQLException;
 
     protected abstract NotFoundException notFoundException();
-    protected abstract ConflictException alreadyExistsException();
+    protected abstract AlreadyExistsException alreadyExistsException();
 
     protected abstract String deleteByIdSql();
 }

@@ -5,7 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pro.sorokovsky.schoolmanagerbackend.exception.base.ConflictException;
+import pro.sorokovsky.schoolmanagerbackend.exception.base.AlreadyExistsException;
 import pro.sorokovsky.schoolmanagerbackend.exception.base.NotFoundException;
 import pro.sorokovsky.schoolmanagerbackend.exception.user.UserAlreadyExistsException;
 import pro.sorokovsky.schoolmanagerbackend.exception.user.UserNotFoundException;
@@ -69,7 +69,7 @@ public class UsersRepository extends CrudRepository<User> {
     }
 
     @Override
-    protected ConflictException alreadyExistsException() {
+    protected AlreadyExistsException alreadyExistsException() {
         return new UserAlreadyExistsException();
     }
 

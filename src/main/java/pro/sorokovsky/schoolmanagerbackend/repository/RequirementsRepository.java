@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import pro.sorokovsky.schoolmanagerbackend.exception.base.ConflictException;
+import pro.sorokovsky.schoolmanagerbackend.exception.base.AlreadyExistsException;
 import pro.sorokovsky.schoolmanagerbackend.exception.base.NotFoundException;
 import pro.sorokovsky.schoolmanagerbackend.exception.requirement.RequirementAlreadyExistsException;
 import pro.sorokovsky.schoolmanagerbackend.exception.requirement.RequirementNotFoundException;
@@ -64,7 +64,7 @@ public class RequirementsRepository extends CrudRepository<Requirement> {
     }
 
     @Override
-    protected ConflictException alreadyExistsException() {
+    protected AlreadyExistsException alreadyExistsException() {
         return new RequirementAlreadyExistsException();
     }
 
