@@ -112,7 +112,7 @@ CREATE TABLE Subjects (
     Id INT IDENTITY(1, 1) PRIMARY KEY,
     Name NVARCHAR(50),
     Description NVARCHAR(500) DEFAULT '',
-    TeacherId INT NOT NULL FOREIGN KEY REFERENCES Employees(Id)
+    TeacherId INT NOT NULL FOREIGN KEY REFERENCES Employees(Id),
 );
 
 CREATE TABLE Schedules (
@@ -122,5 +122,6 @@ CREATE TABLE Schedules (
     SubjectId INT NOT NULL FOREIGN KEY REFERENCES Subjects(Id),
     StartTime TIME NOT NULL,
     EndTime TIME NOT NULL,
-    CONSTRAINT CK_Schedules_Time CHECK (StartTime < EndTime)
+    CONSTRAINT CK_Schedules_Time CHECK (StartTime < EndTime),
+    ClassId INT NOT NULL FOREIGN KEY REFERENCES Classes(Id)
 );
