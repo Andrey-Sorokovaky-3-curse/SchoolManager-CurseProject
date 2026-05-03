@@ -14,8 +14,6 @@ import pro.sorokovsky.schoolmanagerbackend.exception.position.RequirementAlready
 import pro.sorokovsky.schoolmanagerbackend.exception.position.ResponsibilityAlreadyException;
 import pro.sorokovsky.schoolmanagerbackend.mapper.PositionRowMapper;
 import pro.sorokovsky.schoolmanagerbackend.model.Position;
-import pro.sorokovsky.schoolmanagerbackend.model.Requirement;
-import pro.sorokovsky.schoolmanagerbackend.model.Responsibility;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
