@@ -22,7 +22,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UsersRepository extends CrudRepository<User> {
     private static final String SELECT_FIELDS =
-            "Id, Login, Password, FirstName, LastName, MiddleName, Birthday, Gender, Address";
+            "Id, Login, Role, Password, FirstName, LastName, MiddleName, Birthday, Gender, Address";
     private static final String INSERT_FIELDS =
             "Login, Password, FirstName, LastName, MiddleName, Birthday, Gender, Address";
     private static final String SELECT_BASE = "SELECT %s FROM Users".formatted(SELECT_FIELDS);

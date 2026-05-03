@@ -39,7 +39,6 @@ public class User implements UserDetails {
         return new GetUser(
                 id,
                 login,
-                password,
                 firstName,
                 lastName,
                 middleName,

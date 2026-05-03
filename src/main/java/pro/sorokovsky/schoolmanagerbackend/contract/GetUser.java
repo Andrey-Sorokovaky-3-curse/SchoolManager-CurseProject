@@ -23,14 +23,6 @@ public record GetUser(
         String login,
 
         @Schema(
-                description = "Пароль користувача",
-                example = "<PASSWORD>",
-                requiredMode = Schema.RequiredMode.REQUIRED,
-                maxLength = 300
-        )
-        String password,
-
-        @Schema(
                 description = "Ім'я користувача",
                 example = "Андрій",
                 requiredMode = Schema.RequiredMode.REQUIRED,
