@@ -14,7 +14,6 @@ import java.util.List;
 public class Position {
     private Long id;
     private String name;
-    private String description;
     private double salary;
     private List<Requirement> requirements;
     private List<Responsibility> responsibilities;

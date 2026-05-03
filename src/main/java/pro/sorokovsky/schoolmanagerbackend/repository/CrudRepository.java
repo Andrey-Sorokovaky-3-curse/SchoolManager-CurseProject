@@ -15,7 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public abstract class CrudRepository<Model> {
+public abstract class CrudRepository<Model> implements Repository<Model> {
     @Transactional(readOnly = true)
     public Optional<Model> findById(Long id) {
         try {
