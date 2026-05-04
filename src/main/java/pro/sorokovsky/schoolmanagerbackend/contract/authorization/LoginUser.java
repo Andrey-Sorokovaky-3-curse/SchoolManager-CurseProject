@@ -1,4 +1,4 @@
-package pro.sorokovsky.schoolmanagerbackend.contract;
+package pro.sorokovsky.schoolmanagerbackend.contract.authorization;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;

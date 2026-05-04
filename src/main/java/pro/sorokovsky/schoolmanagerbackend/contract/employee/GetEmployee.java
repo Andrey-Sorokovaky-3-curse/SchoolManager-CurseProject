@@ -1,12 +1,18 @@
-package pro.sorokovsky.schoolmanagerbackend.contract;
+package pro.sorokovsky.schoolmanagerbackend.contract.employee;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import pro.sorokovsky.schoolmanagerbackend.contract.passport.GetPassport;
+import pro.sorokovsky.schoolmanagerbackend.contract.position.GetPosition;
+import pro.sorokovsky.schoolmanagerbackend.contract.requirement.GetRequirement;
+import pro.sorokovsky.schoolmanagerbackend.contract.responsibility.GetResponsibility;
 import pro.sorokovsky.schoolmanagerbackend.entity.Gender;
 
-@Schema(description = "Сутність для отримання користувача", requiredMode = Schema.RequiredMode.REQUIRED)
-public record GetUser(
+import java.util.List;
+
+@Schema(description = "Дані для отримання працівника")
+public record GetEmployee(
         @Schema(
-                description = "Унікальний ідентифікатор користувача",
+                description = "Унікальний ідентифікатор",
                 example = "1",
                 requiredMode = Schema.RequiredMode.REQUIRED
         )
@@ -65,6 +71,17 @@ public record GetUser(
                 requiredMode = Schema.RequiredMode.REQUIRED,
                 maxLength = 200
         )
-        String address
+        String address,
+
+        @Schema(
+                description = "Номер телефону",
+                example = "+380673389286",
+                requiredMode = Schema.RequiredMode.REQUIRED,
+                maxLength = 20
+        )
+        String phoneNumber,
+
+        List<GetPosition> positions,
+        List<GetPassport> passports
 ) {
 }

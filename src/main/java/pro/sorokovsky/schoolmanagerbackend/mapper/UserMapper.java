@@ -2,7 +2,7 @@ package pro.sorokovsky.schoolmanagerbackend.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import pro.sorokovsky.schoolmanagerbackend.contract.GetUser;
+import pro.sorokovsky.schoolmanagerbackend.contract.user.GetUser;
 import pro.sorokovsky.schoolmanagerbackend.entity.UserEntity;
 
 @Component

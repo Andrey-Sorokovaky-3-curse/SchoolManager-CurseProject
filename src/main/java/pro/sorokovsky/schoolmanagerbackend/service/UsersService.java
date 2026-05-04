@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import pro.sorokovsky.schoolmanagerbackend.contract.CreateUser;
+import pro.sorokovsky.schoolmanagerbackend.contract.user.CreateUser;
 import pro.sorokovsky.schoolmanagerbackend.entity.Roles;
 import pro.sorokovsky.schoolmanagerbackend.entity.UserEntity;
 import pro.sorokovsky.schoolmanagerbackend.mapper.UserMapper;
