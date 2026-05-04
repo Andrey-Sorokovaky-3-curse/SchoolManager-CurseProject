@@ -1,4 +1,4 @@
-package pro.sorokovsky.schoolmanagerbackend.model;
+package pro.sorokovsky.schoolmanagerbackend.entity;
 
 public enum Roles {
     USER("USER"),

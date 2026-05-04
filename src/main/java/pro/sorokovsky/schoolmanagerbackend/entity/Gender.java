@@ -1,4 +1,4 @@
-package pro.sorokovsky.schoolmanagerbackend.model;
+package pro.sorokovsky.schoolmanagerbackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

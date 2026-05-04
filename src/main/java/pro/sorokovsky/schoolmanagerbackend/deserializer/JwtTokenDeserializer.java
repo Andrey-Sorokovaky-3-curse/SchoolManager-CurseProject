@@ -2,7 +2,7 @@ package pro.sorokovsky.schoolmanagerbackend.deserializer;
 
 import com.nimbusds.jwt.JWTClaimsSet;
 import org.jspecify.annotations.NonNull;
-import pro.sorokovsky.schoolmanagerbackend.model.Token;
+import pro.sorokovsky.schoolmanagerbackend.entity.Token;
 
 import java.text.ParseException;
 import java.util.UUID;

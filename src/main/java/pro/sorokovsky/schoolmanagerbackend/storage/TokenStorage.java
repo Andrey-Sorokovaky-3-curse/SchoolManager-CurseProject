@@ -2,7 +2,7 @@ package pro.sorokovsky.schoolmanagerbackend.storage;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import pro.sorokovsky.schoolmanagerbackend.model.Token;
+import pro.sorokovsky.schoolmanagerbackend.entity.Token;
 
 import java.util.Optional;
 

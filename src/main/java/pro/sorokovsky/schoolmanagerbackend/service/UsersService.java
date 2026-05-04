@@ -8,9 +8,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pro.sorokovsky.schoolmanagerbackend.contract.CreateUser;
+import pro.sorokovsky.schoolmanagerbackend.entity.Roles;
+import pro.sorokovsky.schoolmanagerbackend.entity.UserEntity;
 import pro.sorokovsky.schoolmanagerbackend.mapper.UserMapper;
-import pro.sorokovsky.schoolmanagerbackend.model.Roles;
-import pro.sorokovsky.schoolmanagerbackend.model.UserModel;
 import pro.sorokovsky.schoolmanagerbackend.repository.UsersRepository;
 
 import java.util.Optional;
@@ -22,8 +22,8 @@ public class UsersService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper mapper;
 
-    public UserModel create(@NonNull CreateUser newUser) {
-        final var user = UserModel
+    public UserEntity create(@NonNull CreateUser newUser) {
+        return UserEntity
                 .builder()
                 .login(newUser.login())
                 .password(passwordEncoder.encode(newUser.password()))
@@ -31,23 +31,22 @@ public class UsersService implements UserDetailsService {
                 .firstName(newUser.firstName())
                 .lastName(newUser.lastName())
                 .middleName(newUser.middleName())
-                .birthday(newUser.birthday())
+                .birthday(newUser.birthday().toLocalDate())
                 .gender(newUser.gender())
                 .address(newUser.address())
                 .build();
-        return mapper.toModel(repository.save(mapper.toEntity(user)));
     }
 
-    public Optional<UserModel> getById(Integer id) {
-        return repository.findById(id).map(mapper::toModel);
+    public Optional<UserEntity> getById(Integer id) {
+        return repository.findById(id);
     }
 
-    public Optional<UserModel> getByLogin(String login) {
-        return repository.findByLogin(login).map(mapper::toModel);
+    public Optional<UserEntity> getByLogin(String login) {
+        return repository.findByLogin(login);
     }
 
-    public UserModel update(UserModel user) {
-        return mapper.toModel(repository.save(mapper.toEntity(user)));
+    public UserEntity update(UserEntity user) {
+        return repository.save(user);
     }
 
     public void delete(Integer id) {
@@ -57,7 +56,6 @@ public class UsersService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return repository.findByLogin(username)
-                .map(mapper::toModel)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
     }
 }

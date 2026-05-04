@@ -1,6 +1,6 @@
 package pro.sorokovsky.schoolmanagerbackend.deserializer;
 
-import pro.sorokovsky.schoolmanagerbackend.model.Token;
+import pro.sorokovsky.schoolmanagerbackend.entity.Token;
 
 import java.util.Optional;
 import java.util.function.Function;

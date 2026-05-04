@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pro.sorokovsky.schoolmanagerbackend.model.Token;
+import pro.sorokovsky.schoolmanagerbackend.entity.Token;
 
 import java.util.Optional;
 

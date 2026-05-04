@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import pro.sorokovsky.schoolmanagerbackend.deserializer.TokenDeserializer;
-import pro.sorokovsky.schoolmanagerbackend.model.Token;
+import pro.sorokovsky.schoolmanagerbackend.entity.Token;
 import pro.sorokovsky.schoolmanagerbackend.serialization.TokenSerializer;
 
 import java.time.temporal.ChronoUnit;

@@ -7,7 +7,7 @@ import io.swagger.v3.oas.models.media.BooleanSchema;
 import io.swagger.v3.oas.models.media.Schema;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;
-import pro.sorokovsky.schoolmanagerbackend.model.Gender;
+import pro.sorokovsky.schoolmanagerbackend.entity.Gender;
 
 import java.util.Iterator;
 import java.util.List;

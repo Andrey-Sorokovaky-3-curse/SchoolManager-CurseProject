@@ -21,8 +21,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import pro.sorokovsky.schoolmanagerbackend.contract.CreateUser;
 import pro.sorokovsky.schoolmanagerbackend.contract.GetUser;
 import pro.sorokovsky.schoolmanagerbackend.contract.LoginUser;
+import pro.sorokovsky.schoolmanagerbackend.entity.UserEntity;
 import pro.sorokovsky.schoolmanagerbackend.mapper.UserMapper;
-import pro.sorokovsky.schoolmanagerbackend.model.UserModel;
 import pro.sorokovsky.schoolmanagerbackend.service.AuthorizationService;
 
 @Tag(name = "Авторизація")
@@ -164,7 +164,7 @@ public class AuthorizationController {
             )
     })
     @GetMapping("profile")
-    public ResponseEntity<GetUser> getProfile(@AuthenticationPrincipal @NonNull UserModel user) {
+    public ResponseEntity<GetUser> getProfile(@AuthenticationPrincipal @NonNull UserEntity user) {
         return ResponseEntity.ok(mapper.toGet(user));
     }
 

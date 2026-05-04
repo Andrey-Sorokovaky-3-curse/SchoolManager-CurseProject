@@ -5,10 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import pro.sorokovsky.schoolmanagerbackend.converter.GenderConverter;
-import pro.sorokovsky.schoolmanagerbackend.model.Gender;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @Table(schema = "dbo", name = "Users")
@@ -17,7 +22,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
-public class UserEntity {
+public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
@@ -50,4 +55,14 @@ public class UserEntity {
 
     @Column(name = "Address", nullable = false, length = 200)
     private String address;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return new LinkedList<>(List.of(new SimpleGrantedAuthority("ROLE_%s".formatted(role))));
+    }
+
+    @Override
+    public String getUsername() {
+        return login;
+    }
 }

@@ -1,9 +1,7 @@
 package pro.sorokovsky.schoolmanagerbackend.contract;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import pro.sorokovsky.schoolmanagerbackend.model.Gender;
-
-import java.sql.Date;
+import pro.sorokovsky.schoolmanagerbackend.entity.Gender;
 
 @Schema(description = "Сутність для отримання користувача", requiredMode = Schema.RequiredMode.REQUIRED)
 public record GetUser(
@@ -53,7 +51,7 @@ public record GetUser(
                 format = "date",
                 pattern = "yyyy-MM-dd"
         )
-        Date birthday,
+        java.time.LocalDate birthday,
 
         @Schema(
                 description = "Стать користувача",

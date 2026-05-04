@@ -2,7 +2,7 @@ package pro.sorokovsky.schoolmanagerbackend.converter;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-import pro.sorokovsky.schoolmanagerbackend.model.Gender;
+import pro.sorokovsky.schoolmanagerbackend.entity.Gender;
 
 @Converter(autoApply = true)
 public class GenderConverter implements AttributeConverter<Gender, Boolean> {

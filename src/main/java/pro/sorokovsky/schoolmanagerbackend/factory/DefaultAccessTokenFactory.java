@@ -3,7 +3,7 @@ package pro.sorokovsky.schoolmanagerbackend.factory;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
-import pro.sorokovsky.schoolmanagerbackend.model.Token;
+import pro.sorokovsky.schoolmanagerbackend.entity.Token;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -18,7 +18,7 @@ public class DefaultAccessTokenFactory implements AccessTokenFactory {
         final var now = Instant.now();
         return new Token(
                 token.id(),
-                token.login(),
+                token.subject(),
                 token.authorities(),
                 now,
                 now.plus(lifetime)
