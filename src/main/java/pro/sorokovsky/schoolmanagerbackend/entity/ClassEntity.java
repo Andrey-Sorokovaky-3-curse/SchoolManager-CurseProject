@@ -1,0 +1,31 @@
+package pro.sorokovsky.schoolmanagerbackend.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@SuperBuilder
+@Entity
+@Table(name = "Classes")
+public class ClassEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
+    private Integer id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CuratorId")
+    private EmployeeEntity curator;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ClassTypeId")
+    private ClassTypeEntity classType;
+
+    @Column(name = "Letter", nullable = false)
+    private Character letter;
+}
