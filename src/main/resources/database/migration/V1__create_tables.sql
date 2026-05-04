@@ -17,9 +17,7 @@ CREATE TABLE Parents (
     UserId INT NOT NULL FOREIGN KEY REFERENCES Users(Id),
     Job NVARCHAR(1000),
     PhoneNumber NVARCHAR(20) NOT NULL,
-    CONSTRAINT CK_Parent_PhoneNumber_UA CHECK (
-        PhoneNumber LIKE '+38[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'
-        ),
+    CONSTRAINT CK_Parent_PhoneNumber_UA CHECK (PhoneNumber LIKE '+38[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
     CONSTRAINT UQ_Parent_PhoneNumber UNIQUE (PhoneNumber)
 );
 

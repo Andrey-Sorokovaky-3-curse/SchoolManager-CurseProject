@@ -5,18 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalTime;
-import java.util.Date;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Schedule {
+public class PassportModel {
     private Long id;
-    private Date date;
-    private String dayOfWeek;
-    private Subject subject;
-    private LocalTime startTime;
-    private LocalTime endTime;
+    private String name;
+    private String data;
 }

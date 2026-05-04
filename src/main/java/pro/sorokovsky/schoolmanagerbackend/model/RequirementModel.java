@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Subject {
+public class RequirementModel {
     private Long id;
     private String name;
     private String description;
-    private Employee teacher;
 }

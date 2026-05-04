@@ -5,16 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Position {
+public class ClassModel {
     private Long id;
-    private String name;
-    private double salary;
-    private List<Requirement> requirements;
-    private List<Responsibility> responsibilities;
+    private EmployeeModel curator;
+    private ClassTypeModel classType;
+    private char letter;
+    private int studyYear;
+    private int createdAtYear;
 }

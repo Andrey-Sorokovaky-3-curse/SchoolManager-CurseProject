@@ -9,11 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Class {
+public class ClassTypeModel {
     private Long id;
-    private Employee curator;
-    private ClassType classType;
-    private char letter;
-    private int studyYear;
-    private int createdAtYear;
+    private String name;
+    private String description;
 }

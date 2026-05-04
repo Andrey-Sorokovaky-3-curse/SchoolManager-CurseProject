@@ -4,9 +4,11 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+@EqualsAndHashCode
 @Entity
 @Table(schema = "dbo", name = "Positions")
 @AllArgsConstructor
@@ -23,7 +25,7 @@ public class PositionEntity {
     private String name;
 
     @Column(name = "Salary", nullable = false)
-    private Long salary;
+    private BigDecimal salary;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

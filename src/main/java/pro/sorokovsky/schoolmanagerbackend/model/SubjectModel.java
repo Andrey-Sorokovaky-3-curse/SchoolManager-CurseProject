@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Passport {
+public class SubjectModel {
     private Long id;
     private String name;
-    private String data;
-    private Employee employee;
+    private String description;
+    private EmployeeModel teacher;
 }

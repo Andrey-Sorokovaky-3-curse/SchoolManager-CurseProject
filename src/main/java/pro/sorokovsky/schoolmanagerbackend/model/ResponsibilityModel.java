@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Responsibility {
+public class ResponsibilityModel {
     private Long id;
     private String name;
     private String description;

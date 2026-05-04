@@ -9,9 +9,9 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Pupil {
-    private Parent father;
-    private Parent mother;
-    private Class clazz;
+public class PupilModel {
+    private ParentModel father;
+    private ParentModel mother;
+    private ClassModel clazz;
     private String extraInformation;
 }

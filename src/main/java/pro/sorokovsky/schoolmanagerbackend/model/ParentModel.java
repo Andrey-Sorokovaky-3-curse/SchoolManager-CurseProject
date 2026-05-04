@@ -3,14 +3,12 @@ package pro.sorokovsky.schoolmanagerbackend.model;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.util.List;
-
-@EqualsAndHashCode()
+@EqualsAndHashCode
 @Data
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
-public class Employee {
+public class ParentModel {
     private String phoneNumber;
-    private List<Position> positions;
+    private String job;
 }
