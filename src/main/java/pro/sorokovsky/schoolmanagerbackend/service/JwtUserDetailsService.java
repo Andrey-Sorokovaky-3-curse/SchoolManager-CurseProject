@@ -21,10 +21,8 @@ public class JwtUserDetailsService implements AuthenticationUserDetailsService<P
     public UserDetails loadUserDetails(@NonNull PreAuthenticatedAuthenticationToken preAuthenticatedAuthenticationToken)
             throws UsernameNotFoundException {
         if (preAuthenticatedAuthenticationToken.getPrincipal() instanceof Token token) {
-            final var user = usersService.getByLogin(token.login())
+            return usersService.getByLogin(token.login())
                     .orElseThrow(() -> new UsernameNotFoundException(token.login()));
-            user.getAuthorities().addAll(token.authorities().stream().map(SimpleGrantedAuthority::new).toList());
-            return user;
         }
         throw new UsernameNotFoundException(MESSAGE_CODE);
     }

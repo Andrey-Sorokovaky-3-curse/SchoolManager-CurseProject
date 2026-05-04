@@ -6,6 +6,11 @@ spring:
     url: jdbc:sqlserver://localhost:1433;databaseName=School;trustServerCertificate=true
     username: sa
     password: YourStrong!Passw0rd
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   flyway:
     enabled: true
     baseline-on-migrate: true

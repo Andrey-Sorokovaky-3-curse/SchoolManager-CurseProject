@@ -1,7 +1,7 @@
 package pro.sorokovsky.schoolmanagerbackend.model;
 
 public enum Roles {
-    USER("User"),
+    USER("USER"),
     PARENT("Parent"),
     EMPLOYEE("Employee"),
     PUPIL("Pupil");

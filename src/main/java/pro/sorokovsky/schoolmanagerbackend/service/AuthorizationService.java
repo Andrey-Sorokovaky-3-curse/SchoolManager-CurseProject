@@ -11,7 +11,7 @@ import pro.sorokovsky.schoolmanagerbackend.exception.authorization.BadCredential
 import pro.sorokovsky.schoolmanagerbackend.exception.user.UserNotFoundException;
 import pro.sorokovsky.schoolmanagerbackend.factory.AccessTokenFactory;
 import pro.sorokovsky.schoolmanagerbackend.factory.RefreshTokenFactory;
-import pro.sorokovsky.schoolmanagerbackend.model.User;
+import pro.sorokovsky.schoolmanagerbackend.model.UserModel;
 import pro.sorokovsky.schoolmanagerbackend.storage.TokenStorage;
 
 @RequiredArgsConstructor
@@ -42,7 +42,7 @@ public class AuthorizationService {
         refreshTokenStorage.clearToken(response);
     }
 
-    private void authorize(User user, HttpServletResponse response) {
+    private void authorize(UserModel user, HttpServletResponse response) {
         final var refreshToken = refreshTokenFactory.apply(user);
         final var accessToken = accessTokenFactory.apply(refreshToken);
         accessTokenStorage.setToken(accessToken, response);

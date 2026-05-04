@@ -21,7 +21,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import pro.sorokovsky.schoolmanagerbackend.contract.CreateUser;
 import pro.sorokovsky.schoolmanagerbackend.contract.GetUser;
 import pro.sorokovsky.schoolmanagerbackend.contract.LoginUser;
-import pro.sorokovsky.schoolmanagerbackend.model.User;
+import pro.sorokovsky.schoolmanagerbackend.mapper.UserMapper;
+import pro.sorokovsky.schoolmanagerbackend.model.UserModel;
 import pro.sorokovsky.schoolmanagerbackend.service.AuthorizationService;
 
 @Tag(name = "Авторизація")
@@ -30,6 +31,7 @@ import pro.sorokovsky.schoolmanagerbackend.service.AuthorizationService;
 @RequestMapping("authorization")
 public class AuthorizationController {
     private final AuthorizationService service;
+    private final UserMapper mapper;
 
     @Operation(summary = "Реєстрація", description = "Реєстрація користувача у системі.")
     @ApiResponses(value = {
@@ -162,8 +164,8 @@ public class AuthorizationController {
             )
     })
     @GetMapping("profile")
-    public ResponseEntity<GetUser> getProfile(@AuthenticationPrincipal @NonNull User user) {
-        return ResponseEntity.ok(user.toGet());
+    public ResponseEntity<GetUser> getProfile(@AuthenticationPrincipal @NonNull UserModel user) {
+        return ResponseEntity.ok(mapper.toGet(user));
     }
 
     @Operation(summary = "Вихід", description = "Вихід користувача із системи.")

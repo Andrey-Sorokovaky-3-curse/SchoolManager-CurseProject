@@ -12,7 +12,7 @@ public record GetUser(
                 example = "1",
                 requiredMode = Schema.RequiredMode.REQUIRED
         )
-        Long id,
+        Integer id,
 
         @Schema(
                 description = "Логін користувача",

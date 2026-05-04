@@ -3,7 +3,7 @@ package pro.sorokovsky.schoolmanagerbackend.factory;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import pro.sorokovsky.schoolmanagerbackend.model.Token;
-import pro.sorokovsky.schoolmanagerbackend.model.User;
+import pro.sorokovsky.schoolmanagerbackend.model.UserModel;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -16,7 +16,7 @@ public class DefaultRefreshTokenFactory implements RefreshTokenFactory {
     private final Duration lifetime;
 
     @Override
-    public Token apply(User user) {
+    public Token apply(UserModel user) {
         final var now = Instant.now();
         return new Token(
                 UUID.randomUUID(),

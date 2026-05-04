@@ -5,11 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import pro.sorokovsky.schoolmanagerbackend.contract.GetUser;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,33 +18,25 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class User implements UserDetails {
-    private Long id;
+public class UserModel implements UserDetails {
+    private Integer id;
     private String login;
     private String password;
+    private String role;
     private String firstName;
     private String lastName;
     private String middleName;
     private Date birthday;
     private Gender gender;
     private String address;
-    private List<GrantedAuthority> authorities;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return new LinkedList<>(List.of(new SimpleGrantedAuthority("ROLE_%s".formatted(role))));
+    }
 
     @Override
     public String getUsername() {
         return login;
-    }
-
-    public GetUser toGet() {
-        return new GetUser(
-                id,
-                login,
-                firstName,
-                lastName,
-                middleName,
-                birthday,
-                gender,
-                address
-        );
     }
 }
