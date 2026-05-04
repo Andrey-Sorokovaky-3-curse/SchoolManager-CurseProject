@@ -28,4 +28,9 @@ public class EmployeeEntity extends UserEntity {
     )
     @Builder.Default
     private List<PositionEntity> positions = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "EmployeeId")
+    @Builder.Default
+    private List<PassportEntity> passports = new ArrayList<>();
 }
