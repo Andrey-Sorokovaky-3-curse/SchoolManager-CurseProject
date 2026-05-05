@@ -26,4 +26,8 @@ public class PupilEntity extends UserEntity {
 
     @Column(name = "ExtraInformation", nullable = false, length = 1000)
     private String extraInformation;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ClassId")
+    private ClassEntity clazz;
 }
