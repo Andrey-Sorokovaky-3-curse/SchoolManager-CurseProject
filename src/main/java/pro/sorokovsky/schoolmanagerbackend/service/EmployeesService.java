@@ -12,7 +12,7 @@ import java.util.List;
 public class EmployeesService {
     private final EmployeesRepository repository;
 
-    public List<EmployeeEntity> getByPosition(String name) {
-        return repository.findByPositionName(name);
+    public List<EmployeeEntity> getByPosition(Integer positionId) {
+        return repository.findByPosition(positionId);
     }
 }

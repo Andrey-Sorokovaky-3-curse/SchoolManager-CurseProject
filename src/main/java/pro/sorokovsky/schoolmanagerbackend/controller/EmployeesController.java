@@ -11,10 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pro.sorokovsky.schoolmanagerbackend.contract.employee.GetEmployee;
 import pro.sorokovsky.schoolmanagerbackend.mapper.EmployeeMapper;
 import pro.sorokovsky.schoolmanagerbackend.service.EmployeesService;
@@ -29,8 +26,8 @@ public class EmployeesController {
     private final EmployeesService service;
     private final EmployeeMapper mapper;
 
-    @GetMapping("by-position")
-    @Operation(summary = "Відділ кадрів", description = "Отримує працівників за назвою посади.")
+    @GetMapping("by-position/{positionId:\\d+}")
+    @Operation(summary = "Відділ кадрів", description = "Отримує працівників за посадою.")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -51,7 +48,7 @@ public class EmployeesController {
                     )
             ),
     })
-    public ResponseEntity<List<GetEmployee>> findByPosition(@RequestParam String name) {
-        return ResponseEntity.ok().body(service.getByPosition(name).stream().map(mapper::toGet).toList());
+    public ResponseEntity<List<GetEmployee>> findByPosition(@PathVariable Integer positionId) {
+        return ResponseEntity.ok().body(service.getByPosition(positionId).stream().map(mapper::toGet).toList());
     }
 }
