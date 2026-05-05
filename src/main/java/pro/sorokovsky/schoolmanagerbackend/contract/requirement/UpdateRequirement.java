@@ -9,7 +9,7 @@ public record UpdateRequirement(
         @Schema(
                 description = "Назва вимоги.",
                 requiredMode = Schema.RequiredMode.NOT_REQUIRED,
-                example = "Безпека дітей",
+                example = "null",
                 maxLength = 100
         )
         @NotEmpty(message = "{errors.requirement.name.none}")
@@ -19,7 +19,7 @@ public record UpdateRequirement(
         @Schema(
                 description = "Опис вимоги.",
                 requiredMode = Schema.RequiredMode.NOT_REQUIRED,
-                example = "Відповідальність за дітей",
+                example = "null",
                 maxLength = 1000
         )
         @NotEmpty(message = "{errors.requirement.description.none}")

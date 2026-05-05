@@ -64,8 +64,8 @@ CREATE UNIQUE INDEX UIX_PositionsResponsibilities_Pair ON PositionsResponsibilit
 
 CREATE TABLE PositionsRequirements (
     Id INT IDENTITY(1, 1) PRIMARY KEY,
-    PositionId INT NOT NULL FOREIGN KEY REFERENCES Positions(Id),
-    RequirementId INT NOT NULL FOREIGN KEY REFERENCES Requirements(Id)
+    PositionId INT NOT NULL FOREIGN KEY REFERENCES Positions(Id) ON DELETE CASCADE,
+    RequirementId INT NOT NULL FOREIGN KEY REFERENCES Requirements(Id) ON DELETE CASCADE
 );
 
 CREATE UNIQUE INDEX UIX_PositionsRequirements_Pair ON PositionsRequirements(PositionId, RequirementId);

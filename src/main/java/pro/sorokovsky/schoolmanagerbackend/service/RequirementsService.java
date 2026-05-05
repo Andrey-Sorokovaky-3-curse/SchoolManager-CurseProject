@@ -47,6 +47,10 @@ public class RequirementsService {
 
     @Transactional
     public void deleteById(Integer id) {
-        repository.deleteById(id);
+        try {
+            repository.deleteById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

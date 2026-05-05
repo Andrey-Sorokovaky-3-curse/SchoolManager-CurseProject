@@ -33,30 +33,30 @@ public class AuthorizationController {
     private final AuthorizationService service;
     private final UserMapper mapper;
 
-    @Operation(summary = "Реєстрація", description = "Реєстрація користувача у системі.")
+    @Operation(summary = "Реєстрація", description = "Реєстрація користувача у системі")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "201",
-                    description = "Успішна реєстрація.",
+                    description = "Успішна реєстрація",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE
                     ),
                     headers = {
                             @Header(
                                     name = HttpHeaders.AUTHORIZATION,
-                                    description = "Токен доступу.",
+                                    description = "Токен доступу",
                                     example = "Bearer <TOKEN>"
                             ),
                             @Header(
                                     name = HttpHeaders.LOCATION,
-                                    description = "Посилання на себе.",
+                                    description = "Посилання на себе",
                                     example = "https://localhost/authorization/profile"
                             )
                     }
             ),
             @ApiResponse(
                     responseCode = "400",
-                    description = "Некоректні данні.",
+                    description = "Некоректні данні",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemDetail.class)
@@ -64,7 +64,7 @@ public class AuthorizationController {
             ),
             @ApiResponse(
                     responseCode = "403",
-                    description = "Вже авторизований.",
+                    description = "Вже авторизований",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemDetail.class)
@@ -72,7 +72,7 @@ public class AuthorizationController {
             ),
             @ApiResponse(
                     responseCode = "409",
-                    description = "Користувач вже є у системі.",
+                    description = "Користувач вже є у системі",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemDetail.class)
