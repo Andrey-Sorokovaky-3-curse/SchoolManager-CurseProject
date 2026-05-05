@@ -18,7 +18,8 @@ public class ClassMapper {
                 classTypeMapper.toGet(entity.getClassType()),
                 entity.getLetter(),
                 entity.getStudyYear(),
-                entity.getCreatedAtYear()
+                entity.getCreatedAtYear(),
+                entity.getPupilsCount()
         );
     }
 }

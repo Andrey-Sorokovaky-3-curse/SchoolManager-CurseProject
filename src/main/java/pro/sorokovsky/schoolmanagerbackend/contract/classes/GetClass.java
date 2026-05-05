@@ -36,6 +36,13 @@ public record GetClass(
                 requiredMode = Schema.RequiredMode.REQUIRED,
                 example = "2004"
         )
-        Integer createdAtYear
+        Integer createdAtYear,
+
+        @Schema(
+                description = "Кількість учнів",
+                requiredMode = Schema.RequiredMode.REQUIRED,
+                example = "20"
+        )
+        Integer pupilsCount
 ) {
 }

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Formula;
 
 @Data
 @AllArgsConstructor
@@ -34,4 +35,7 @@ public class ClassEntity {
 
     @Column(name = "CreatedAtYear", nullable = false)
     private Integer createdAtYear;
+
+    @Formula("(SELECT COUNT(*) FROM dbo.Pupils p WHERE p.ClassId = Id)")
+    private Integer pupilsCount;
 }
