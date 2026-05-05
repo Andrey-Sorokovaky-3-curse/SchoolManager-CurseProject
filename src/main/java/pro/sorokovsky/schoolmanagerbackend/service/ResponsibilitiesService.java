@@ -6,7 +6,6 @@ import pro.sorokovsky.schoolmanagerbackend.contract.responsibility.CreateRespons
 import pro.sorokovsky.schoolmanagerbackend.contract.responsibility.UpdateResponsibility;
 import pro.sorokovsky.schoolmanagerbackend.entity.ResponsibilityEntity;
 import pro.sorokovsky.schoolmanagerbackend.exception.responsibility.ResponsibilityNotFoundException;
-import pro.sorokovsky.schoolmanagerbackend.mapper.ResponsibilityMapper;
 import pro.sorokovsky.schoolmanagerbackend.repository.ResponsibilitiesRepository;
 
 import java.util.List;
@@ -16,7 +15,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ResponsibilitiesService {
     private final ResponsibilitiesRepository repository;
-    private final ResponsibilityMapper mapper;
 
     public Optional<ResponsibilityEntity> getById(Integer id) {
         return repository.findById(id);
