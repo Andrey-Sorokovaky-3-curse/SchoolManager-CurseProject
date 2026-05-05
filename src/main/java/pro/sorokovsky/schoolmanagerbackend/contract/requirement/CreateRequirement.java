@@ -1,7 +1,7 @@
 package pro.sorokovsky.schoolmanagerbackend.contract.requirement;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Schema(description = "Створення вимоги", requiredMode = Schema.RequiredMode.REQUIRED)
@@ -12,7 +12,7 @@ public record CreateRequirement(
                 example = "Безпека дітей",
                 maxLength = 100
         )
-        @NotEmpty(message = "{errors.requirement.name.none}")
+        @NotBlank(message = "{errors.requirement.name.none}")
         @Size(max = 100, message = "{errors.requirement.name.size}")
         String name,
 
@@ -22,7 +22,7 @@ public record CreateRequirement(
                 example = "Відповідальність за дітей",
                 maxLength = 1000
         )
-        @NotEmpty(message = "{errors.requirement.description.none}")
+        @NotBlank(message = "{errors.requirement.description.none}")
         @Size(max = 100, message = "{errors.requirement.description.size}")
         String description
 ) {
