@@ -12,7 +12,6 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pro.sorokovsky.schoolmanagerbackend.contract.requirement.GetRequirement;
-import pro.sorokovsky.schoolmanagerbackend.contract.user.GetUser;
 import pro.sorokovsky.schoolmanagerbackend.exception.requirement.RequirementNotFoundException;
 import pro.sorokovsky.schoolmanagerbackend.mapper.RequirementMapper;
 import pro.sorokovsky.schoolmanagerbackend.service.RequirementsService;
