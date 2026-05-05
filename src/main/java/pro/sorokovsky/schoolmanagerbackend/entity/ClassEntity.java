@@ -28,4 +28,10 @@ public class ClassEntity {
 
     @Column(name = "Letter", nullable = false)
     private Character letter;
+
+    @Column(name = "StudyYear", nullable = false)
+    private Integer studyYear;
+
+    @Column(name = "CreatedAtYear", nullable = false)
+    private Integer createdAtYear;
 }
