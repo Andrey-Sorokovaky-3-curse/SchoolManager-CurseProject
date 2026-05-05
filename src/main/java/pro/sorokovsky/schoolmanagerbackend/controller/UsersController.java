@@ -89,7 +89,6 @@ public class UsersController {
             @AuthenticationPrincipal UserEntity user,
             HttpServletResponse response
     ) {
-        System.out.println(user);
         service.delete(user.getId());
         authorizationService.logout(response);
         return ResponseEntity.noContent().build();
