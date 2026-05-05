@@ -15,4 +15,8 @@ public class ClassesService {
     public List<ClassEntity> getByStudyYear(Integer studyYear) {
         return repository.findAllByStudyYear(studyYear);
     }
+
+    public List<ClassEntity> getByClassTypeId(Integer classTypeId) {
+        return repository.findAllByClassTypeId(classTypeId);
+    }
 }

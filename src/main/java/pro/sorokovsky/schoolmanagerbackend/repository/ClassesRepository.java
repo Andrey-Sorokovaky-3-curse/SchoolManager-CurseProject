@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface ClassesRepository extends CrudRepository<ClassEntity, Integer> {
     List<ClassEntity> findAllByStudyYear(Integer studyYear);
+    List<ClassEntity> findAllByClassTypeId(Integer classTypeId);
 }

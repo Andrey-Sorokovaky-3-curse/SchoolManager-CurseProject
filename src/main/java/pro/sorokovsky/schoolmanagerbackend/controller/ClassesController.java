@@ -54,4 +54,30 @@ public class ClassesController {
     public ResponseEntity<List<GetClass>> getByStudyYear(@PathVariable Integer year) {
         return ResponseEntity.ok().body(service.getByStudyYear(year).stream().map(mapper::toGet).toList());
     }
+
+    @GetMapping("/by-class-type/{typeId:\\d+}")
+    @Operation(summary = "Список класів", description = "Список класів за типом класу")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Успішне отримання.",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            array = @ArraySchema(
+                                    schema = @Schema(implementation = GetClass.class)
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Неавторизований.",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
+            ),
+    })
+    public ResponseEntity<List<GetClass>> getByClassTypeId(@PathVariable String typeId) {
+        return ResponseEntity.ok(service.getByClassTypeId(Integer.parseInt(typeId)).stream().map(mapper::toGet).toList());
+    }
 }
