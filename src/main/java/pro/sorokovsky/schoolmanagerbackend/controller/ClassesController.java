@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pro.sorokovsky.schoolmanagerbackend.contract.authorization.classes.GetClass;
-import pro.sorokovsky.schoolmanagerbackend.contract.employee.GetEmployee;
 import pro.sorokovsky.schoolmanagerbackend.mapper.ClassMapper;
 import pro.sorokovsky.schoolmanagerbackend.service.ClassesService;
 
