@@ -6,21 +6,21 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public record GetRequirement(
         @Schema(
                 description = "Унікальний ідентифікатор.",
-                requiredMode =  Schema.RequiredMode.REQUIRED,
+                requiredMode = Schema.RequiredMode.REQUIRED,
                 example = "1"
         )
         Integer id,
 
         @Schema(
                 description = "Назва вимоги.",
-                requiredMode =  Schema.RequiredMode.REQUIRED,
+                requiredMode = Schema.RequiredMode.REQUIRED,
                 example = "Безпека дітей"
         )
         String name,
 
         @Schema(
                 description = "Опис вимоги.",
-                requiredMode =  Schema.RequiredMode.REQUIRED,
+                requiredMode = Schema.RequiredMode.REQUIRED,
                 example = "Відповідальність за дітей"
         )
         String description

@@ -15,32 +15,28 @@ public record GetUser(
         @Schema(
                 description = "Логін користувача",
                 example = "andrey",
-                requiredMode = Schema.RequiredMode.REQUIRED,
-                maxLength = 50
+                requiredMode = Schema.RequiredMode.REQUIRED
         )
         String login,
 
         @Schema(
                 description = "Ім'я користувача",
                 example = "Андрій",
-                requiredMode = Schema.RequiredMode.REQUIRED,
-                maxLength = 50
+                requiredMode = Schema.RequiredMode.REQUIRED
         )
         String firstName,
 
         @Schema(
                 description = "Прізвище користувача",
                 example = "Сороковський",
-                requiredMode = Schema.RequiredMode.REQUIRED,
-                maxLength = 50
+                requiredMode = Schema.RequiredMode.REQUIRED
         )
         String lastName,
 
         @Schema(
                 description = "По батькові користувача",
                 example = "Іванович",
-                requiredMode = Schema.RequiredMode.REQUIRED,
-                maxLength = 50
+                requiredMode = Schema.RequiredMode.REQUIRED
         )
         String middleName,
 
@@ -62,8 +58,7 @@ public record GetUser(
         @Schema(
                 description = "Адреса користувача",
                 example = "м. Хмельницький, вул. Пілотська 76",
-                requiredMode = Schema.RequiredMode.REQUIRED,
-                maxLength = 200
+                requiredMode = Schema.RequiredMode.REQUIRED
         )
         String address
 ) {

@@ -136,11 +136,11 @@ public class AuthorizationController {
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Отримання себе", description = "Отримання авторизованого користувача.")
+    @Operation(summary = "Отримання себе", description = "Отримання авторизованого користувача")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Успішне отримання.",
+                    description = "Успішне отримання",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = GetUser.class)
