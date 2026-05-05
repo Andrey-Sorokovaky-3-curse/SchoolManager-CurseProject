@@ -1,4 +1,4 @@
-package pro.sorokovsky.schoolmanagerbackend.contract.authorization.classes;
+package pro.sorokovsky.schoolmanagerbackend.contract.classes;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import pro.sorokovsky.schoolmanagerbackend.contract.classtype.GetClassType;
