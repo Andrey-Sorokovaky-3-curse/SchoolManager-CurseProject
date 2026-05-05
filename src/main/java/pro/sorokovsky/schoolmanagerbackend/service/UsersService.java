@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pro.sorokovsky.schoolmanagerbackend.contract.user.CreateUser;
+import pro.sorokovsky.schoolmanagerbackend.contract.user.UpdateUser;
 import pro.sorokovsky.schoolmanagerbackend.entity.Roles;
 import pro.sorokovsky.schoolmanagerbackend.entity.UserEntity;
 import pro.sorokovsky.schoolmanagerbackend.repository.UsersRepository;
@@ -43,7 +44,16 @@ public class UsersService implements UserDetailsService {
         return repository.findByLogin(login);
     }
 
-    public UserEntity update(UserEntity user) {
+    public UserEntity update(UserEntity user, UpdateUser updateUser) {
+        if (updateUser.login() != null) user.setLogin(updateUser.login());
+        if (updateUser.firstName() != null) user.setFirstName(updateUser.firstName());
+        if (updateUser.lastName() != null) user.setLastName(updateUser.lastName());
+        if (updateUser.middleName() != null) user.setMiddleName(updateUser.middleName());
+        if (updateUser.birthday() != null) {
+            user.setBirthday(updateUser.birthday().toLocalDate());
+        }
+        if (updateUser.gender() != null) user.setGender(updateUser.gender());
+        if (updateUser.address() != null) user.setAddress(updateUser.address());
         return repository.save(user);
     }
 
