@@ -47,10 +47,10 @@ public class RequirementsService {
 
     @Transactional
     public void deleteById(Integer id) {
-        try {
+        if (repository.existsById(id)) {
             repository.deleteById(id);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            throw new RequirementNotFoundException();
         }
     }
 }
