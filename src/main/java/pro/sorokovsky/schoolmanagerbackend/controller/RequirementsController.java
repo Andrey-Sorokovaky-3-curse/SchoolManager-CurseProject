@@ -169,11 +169,7 @@ public class RequirementsController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "204",
-                    description = "Успішне видалення",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = GetRequirement.class)
-                    )
+                    description = "Успішне видалення"
             ),
             @ApiResponse(
                     responseCode = "401",

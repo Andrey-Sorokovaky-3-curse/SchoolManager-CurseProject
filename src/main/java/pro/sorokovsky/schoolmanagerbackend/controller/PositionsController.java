@@ -2,6 +2,7 @@ package pro.sorokovsky.schoolmanagerbackend.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.headers.Header;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -15,183 +16,171 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import pro.sorokovsky.schoolmanagerbackend.contract.requirement.GetRequirement;
-import pro.sorokovsky.schoolmanagerbackend.contract.responsibility.CreateResponsibility;
-import pro.sorokovsky.schoolmanagerbackend.contract.responsibility.GetResponsibility;
-import pro.sorokovsky.schoolmanagerbackend.contract.responsibility.UpdateResponsibility;
-import pro.sorokovsky.schoolmanagerbackend.exception.responsibility.ResponsibilityNotFoundException;
-import pro.sorokovsky.schoolmanagerbackend.mapper.ResponsibilityMapper;
-import pro.sorokovsky.schoolmanagerbackend.service.ResponsibilitiesService;
+import pro.sorokovsky.schoolmanagerbackend.contract.position.CreatePosition;
+import pro.sorokovsky.schoolmanagerbackend.contract.position.GetPosition;
+import pro.sorokovsky.schoolmanagerbackend.contract.position.UpdatePosition;
+import pro.sorokovsky.schoolmanagerbackend.exception.position.PositionNotFoundException;
+import pro.sorokovsky.schoolmanagerbackend.mapper.PositionMapper;
+import pro.sorokovsky.schoolmanagerbackend.service.PositionsService;
 
 import java.util.List;
 
-@RequiredArgsConstructor
-@Tag(name = "Відповідальності")
 @RestController
-@RequestMapping("responsibilities")
-public class ResponsibilitiesController {
-    private final ResponsibilitiesService service;
-    private final ResponsibilityMapper mapper;
+@RequestMapping("positions")
+@Tag(name = "Посади")
+@RequiredArgsConstructor
+public class PositionsController {
+    private final PositionsService service;
+    private final PositionMapper mapper;
 
-    @GetMapping("by-id{id:\\d+}")
-    @Operation(summary = "Одна відповідальність", description = "Отримати відповідальність за ідинтифікатором")
+    @GetMapping("by-id/{id:\\d+}")
+    @Operation(summary = "Конкретна посада", description = "Отримує посаду за ідинтифікатором")
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "200",
                     description = "Успішне отримання",
+                    responseCode = "200",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = GetResponsibility.class)
+                            schema = @Schema(implementation = GetPosition.class)
                     )
             ),
             @ApiResponse(
+                    description = "Не авторизований",
                     responseCode = "401",
-                    description = "Неавторизований",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemDetail.class)
                     )
             ),
             @ApiResponse(
+                    description = "Не знайдено",
                     responseCode = "404",
-                    description = "Відповідальність не знайдена",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemDetail.class)
                     )
-            )
+            ),
     })
-    public ResponseEntity<GetResponsibility> getById(@PathVariable Integer id) {
-        return ResponseEntity.ok(service.getById(id).map(mapper::toGet).orElseThrow(ResponsibilityNotFoundException::new));
+    public ResponseEntity<GetPosition> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(service.getById(id).map(mapper::toGet).orElseThrow(PositionNotFoundException::new));
     }
 
-    @Operation(summary = "Пошук відповідальності", description = "Шукає відповідальності по всім полям")
+    @GetMapping("by-term/{term}")
+    @Operation(summary = "Посади", description = "Отримує посади за пошуком")
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "200",
                     description = "Успішне отримання",
+                    responseCode = "200",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = GetResponsibility.class)
+                            array = @ArraySchema(schema = @Schema(implementation = GetPosition.class))
                     )
             ),
             @ApiResponse(
+                    description = "Не авторизований",
                     responseCode = "401",
-                    description = "Неавторизований",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemDetail.class)
                     )
-            )
+            ),
     })
-    @GetMapping("search")
-    public ResponseEntity<List<GetResponsibility>> search(@RequestParam String term) {
-        return ResponseEntity.ok(service.search(term).stream().map(mapper::toGet).toList());
+    public ResponseEntity<List<GetPosition>> getByTerm(@PathVariable String term) {
+        return ResponseEntity.ok(service.getByTerm(term).stream().map(mapper::toGet).toList());
     }
 
-    @Operation(summary = "Нова відповідальність", description = "Створює відповідальність")
+    @Operation(summary = "Створення посади", description = "Створює посаду")
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "201",
                     description = "Успішне створення",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = GetResponsibility.class)
-                    ),
+                    responseCode = "201",
                     headers = {
                             @Header(
                                     name = HttpHeaders.LOCATION,
-                                    description = "Посилання на створену відповідальність",
-                                    example = "https://localhost/responsibilities/by-id/1"
+                                    description = "Посилання на створену посаду",
+                                    example = "http://localhost:8080/positions/by-id/1"
                             )
                     }
             ),
             @ApiResponse(
+                    description = "Не авторизований",
                     responseCode = "401",
-                    description = "Неавторизований",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemDetail.class)
                     )
-            )
+            ),
     })
     @PostMapping
     public ResponseEntity<Void> create(
-            @RequestBody @Valid CreateResponsibility responsibility,
+            @Valid @RequestBody CreatePosition position,
             UriComponentsBuilder uriComponentsBuilder
     ) {
-        final var created = service.create(responsibility);
-        return ResponseEntity.created(uriComponentsBuilder.replacePath("/responsibilities/by-id/{id}").build(created.getId()))
+        final var created = service.create(position);
+        return ResponseEntity
+                .created(uriComponentsBuilder.replacePath("positions/by-id/{id}").build(created.getId()))
                 .build();
     }
 
-    @Operation(summary = "Оновлення відповідальності", description = "Оновлює відповідальність")
+    @Operation(summary = "Оновлення посади", description = "Оновлює посаду")
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "200",
                     description = "Успішне оновлення",
+                    responseCode = "200",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = GetResponsibility.class)
+                            schema = @Schema(implementation = GetPosition.class)
                     )
             ),
             @ApiResponse(
+                    description = "Не авторизований",
                     responseCode = "401",
-                    description = "Неавторизований",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemDetail.class)
                     )
             ),
             @ApiResponse(
-                    responseCode = "400",
-                    description = "Некоректні данні",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ProblemDetail.class)
-                    )
-            ),
-            @ApiResponse(
+                    description = "Не знайдено",
                     responseCode = "404",
-                    description = "Відповідальність не знайдена",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemDetail.class)
                     )
-            )
+            ),
     })
     @PutMapping("{id:\\d+}")
-    public ResponseEntity<GetResponsibility> update(
-            @PathVariable Integer id, @Valid @RequestBody UpdateResponsibility responsibility) {
-        return ResponseEntity.ok(mapper.toGet(service.update(id, responsibility)));
+    public ResponseEntity<GetPosition> update(@PathVariable Integer id, @Valid @RequestBody UpdatePosition position) {
+        return ResponseEntity
+                .ok(mapper.toGet(service.update(id, position)));
     }
 
-    @Operation(summary = "Видалення відповідальності", description = "Видаляє відповідальність")
+    @Operation(summary = "Видалення посади", description = "Видаляє посаду")
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "204",
-                    description = "Успішне видалення"
+                    description = "Успішне видалення",
+                    responseCode = "204"
             ),
             @ApiResponse(
+                    description = "Не авторизований",
                     responseCode = "401",
-                    description = "Неавторизований",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemDetail.class)
                     )
             ),
             @ApiResponse(
+                    description = "Не знайдено",
                     responseCode = "404",
-                    description = "Відповідальність не знайдена",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemDetail.class)
                     )
-            )
+            ),
     })
     @DeleteMapping("{id:\\d+}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        service.delete(id);
+        service.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }
