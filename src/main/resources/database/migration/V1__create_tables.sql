@@ -72,8 +72,8 @@ CREATE UNIQUE INDEX UIX_PositionsRequirements_Pair ON PositionsRequirements(Posi
 
 CREATE TABLE EmployeesPositions (
     Id INT IDENTITY(1, 1) PRIMARY KEY,
-    EmployeeId INT NOT NULL FOREIGN KEY REFERENCES Employees(Id),
-    PositionId INT NOT NULL FOREIGN KEY REFERENCES Positions(Id)
+    EmployeeId INT NOT NULL FOREIGN KEY REFERENCES Employees(Id) ON DELETE CASCADE ,
+    PositionId INT NOT NULL FOREIGN KEY REFERENCES Positions(Id) ON DELETE CASCADE
 );
 
 CREATE UNIQUE INDEX UIX_PositionsEmployees_Pair ON EmployeesPositions(PositionId, EmployeeId);

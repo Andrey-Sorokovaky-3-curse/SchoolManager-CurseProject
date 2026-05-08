@@ -10,7 +10,7 @@ public record UpdatePosition(
         @Schema(
                 description = "Назва посади",
                 requiredMode = Schema.RequiredMode.REQUIRED,
-                example = "Директор"
+                example = "null"
         )
         @NotEmpty(message = "{errors.position.name.none}")
         @Size(message = "{errors.position.name.size}", min = 1, max = 100)
@@ -19,7 +19,7 @@ public record UpdatePosition(
         @Schema(
                 description = "Оклад посади",
                 requiredMode = Schema.RequiredMode.REQUIRED,
-                example = "10000"
+                example = "null"
         )
         @Min(value = 0, message = "{errors.position.salary.min}")
         BigDecimal salary
