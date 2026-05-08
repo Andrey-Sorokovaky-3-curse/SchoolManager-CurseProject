@@ -135,7 +135,7 @@ public class EmployeesController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "204",
-                    description = "Успішне створення"
+                    description = "Успішне видалення"
             ),
             @ApiResponse(
                     responseCode = "401",
