@@ -12,4 +12,6 @@ import java.util.List;
 public interface EmployeesRepository extends CrudRepository<EmployeeEntity, Integer> {
     @Query("SELECT DISTINCT e FROM EmployeeEntity e JOIN e.positions po JOIN e.passports pa WHERE po.id = :id")
     List<EmployeeEntity> findByPosition(@Param("id") Integer id);
+
+    boolean existsByPhoneNumber(String phoneNumber);
 }

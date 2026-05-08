@@ -3,13 +3,11 @@ package pro.sorokovsky.schoolmanagerbackend.contract.employee;
 import io.swagger.v3.oas.annotations.media.Schema;
 import pro.sorokovsky.schoolmanagerbackend.contract.passport.GetPassport;
 import pro.sorokovsky.schoolmanagerbackend.contract.position.GetPosition;
-import pro.sorokovsky.schoolmanagerbackend.contract.requirement.GetRequirement;
-import pro.sorokovsky.schoolmanagerbackend.contract.responsibility.GetResponsibility;
 import pro.sorokovsky.schoolmanagerbackend.entity.Gender;
 
 import java.util.List;
 
-@Schema(description = "Дані для отримання працівника")
+@Schema(description = "Дані для отримання працівника", requiredMode = Schema.RequiredMode.REQUIRED)
 public record GetEmployee(
         @Schema(
                 description = "Унікальний ідентифікатор",
