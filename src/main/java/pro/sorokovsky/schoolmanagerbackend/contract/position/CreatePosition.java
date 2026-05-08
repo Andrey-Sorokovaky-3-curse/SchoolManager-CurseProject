@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 
-@Schema(description = "Створення позиції", requiredMode = Schema.RequiredMode.REQUIRED)
+@Schema(description = "Створення посади", requiredMode = Schema.RequiredMode.REQUIRED)
 public record CreatePosition(
         @Schema(
                 description = "Назва посади",
