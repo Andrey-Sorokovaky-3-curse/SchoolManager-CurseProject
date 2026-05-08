@@ -1,4 +1,4 @@
-package pro.sorokovsky.schoolmanagerbackend.exception.position;
+package pro.sorokovsky.schoolmanagerbackend.exception.employee;
 
 import pro.sorokovsky.schoolmanagerbackend.exception.base.AlreadyExistsException;
 

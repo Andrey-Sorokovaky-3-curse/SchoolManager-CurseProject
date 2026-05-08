@@ -5,7 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pro.sorokovsky.schoolmanagerbackend.contract.employee.CreateEmployee;
 import pro.sorokovsky.schoolmanagerbackend.entity.EmployeeEntity;
-import pro.sorokovsky.schoolmanagerbackend.exception.position.ExistsByPhoneNumberException;
+import pro.sorokovsky.schoolmanagerbackend.exception.employee.EmployeeNotFoundException;
+import pro.sorokovsky.schoolmanagerbackend.exception.employee.ExistsByPhoneNumberException;
 import pro.sorokovsky.schoolmanagerbackend.exception.user.UserNotFoundException;
 import pro.sorokovsky.schoolmanagerbackend.repository.EmployeesRepository;
 
@@ -51,5 +52,13 @@ public class EmployeesService {
                         .passports(List.of())
                         .build()
         );
+    }
+
+    public void delete(Integer id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+        } else {
+            throw new EmployeeNotFoundException();
+        }
     }
 }
