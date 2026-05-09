@@ -119,6 +119,14 @@ public class EmployeesController {
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemDetail.class)
                     )
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Працівник вже існує для користувача",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
             )
     }
     )
@@ -128,7 +136,7 @@ public class EmployeesController {
             UriComponentsBuilder uriComponentsBuilder
     ) {
         final var created = service.create(employee);
-        return ResponseEntity.created(uriComponentsBuilder.replacePath("employees/{id}").buildAndExpand(created.getId())
+        return ResponseEntity.created(uriComponentsBuilder.replacePath("employees/by-id/{id}").buildAndExpand(created.getId())
                 .toUri()).build();
     }
 

@@ -1,5 +1,7 @@
 package pro.sorokovsky.schoolmanagerbackend.repository;
 
+import org.jspecify.annotations.NonNull;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -14,4 +16,8 @@ public interface EmployeesRepository extends CrudRepository<EmployeeEntity, Inte
     List<EmployeeEntity> findByPosition(@Param("id") Integer id);
 
     boolean existsByPhoneNumber(String phoneNumber);
+
+    @Modifying
+    @Query("DELETE FROM EmployeeEntity e WHERE e.id = :id")
+    void deleteById(@NonNull @Param("id") Integer id);
 }
