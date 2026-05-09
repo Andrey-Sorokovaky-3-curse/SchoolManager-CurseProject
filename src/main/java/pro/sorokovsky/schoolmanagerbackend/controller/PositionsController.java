@@ -155,6 +155,154 @@ public class PositionsController {
                 .ok(mapper.toGet(service.update(id, position)));
     }
 
+    @Operation(summary = "Додавання вимоги", description = "Додає вимогу за ідентифікаторами")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    description = "Успішне оновлення",
+                    responseCode = "200",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = GetPosition.class)
+                    )
+            ),
+            @ApiResponse(
+                    description = "Не авторизований",
+                    responseCode = "401",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
+            ),
+            @ApiResponse(
+                    description = "Не знайдено",
+                    responseCode = "404",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
+            ),
+            @ApiResponse(
+                    description = "Вимога вже є у відповідальності",
+                    responseCode = "409",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
+            ),
+    })
+    @PutMapping("add-requirement/{id:\\d+}/{requirementId:\\d+}")
+    public ResponseEntity<GetPosition> addRequirement(@PathVariable Integer id, @PathVariable Integer requirementId) {
+        return ResponseEntity
+                .ok(mapper.toGet(service.addRequirement(id, requirementId)));
+    }
+
+    @Operation(summary = "Видалення вимоги", description = "Видаляє вимогу за ідентифікаторами")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    description = "Успішне оновлення",
+                    responseCode = "200",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = GetPosition.class)
+                    )
+            ),
+            @ApiResponse(
+                    description = "Не авторизований",
+                    responseCode = "401",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
+            ),
+            @ApiResponse(
+                    description = "Не знайдено",
+                    responseCode = "404",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
+            ),
+    })
+    @PutMapping("remove-requirement/{id:\\d+}/{requirementId:\\d+}")
+    public ResponseEntity<GetPosition> removeRequirement(@PathVariable Integer id, @PathVariable Integer requirementId) {
+        return ResponseEntity
+                .ok(mapper.toGet(service.removeRequirement(id, requirementId)));
+    }
+
+    @Operation(summary = "Додавання відповідальності", description = "Додає відповідальність за ідентифікаторами")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    description = "Успішне оновлення",
+                    responseCode = "200",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = GetPosition.class)
+                    )
+            ),
+            @ApiResponse(
+                    description = "Не авторизований",
+                    responseCode = "401",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
+            ),
+            @ApiResponse(
+                    description = "Не знайдено",
+                    responseCode = "404",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
+            ),
+            @ApiResponse(
+                    description = "Відповідальність вже є у посаді",
+                    responseCode = "409",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
+            ),
+    })
+    @PutMapping("add-responsibility/{id:\\d+}/{responsibilityId:\\d+}")
+    public ResponseEntity<GetPosition> addResponsibility(@PathVariable Integer id, @PathVariable Integer responsibilityId) {
+        return ResponseEntity
+                .ok(mapper.toGet(service.addResponsibility(id, responsibilityId)));
+    }
+
+    @Operation(summary = "Видалення відповідальності", description = "Видаляє відповідальність за ідентифікаторами")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    description = "Успішне оновлення",
+                    responseCode = "200",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = GetPosition.class)
+                    )
+            ),
+            @ApiResponse(
+                    description = "Не авторизований",
+                    responseCode = "401",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
+            ),
+            @ApiResponse(
+                    description = "Не знайдено",
+                    responseCode = "404",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
+            ),
+    })
+    @PutMapping("remove-responsibility/{id:\\d+}/{responsibilityId:\\d+}")
+    public ResponseEntity<GetPosition> removeResponsibility(@PathVariable Integer id, @PathVariable Integer responsibilityId) {
+        return ResponseEntity
+                .ok(mapper.toGet(service.removeResponsibility(id, responsibilityId)));
+    }
+
     @Operation(summary = "Видалення посади", description = "Видаляє посаду")
     @ApiResponses(value = {
             @ApiResponse(
