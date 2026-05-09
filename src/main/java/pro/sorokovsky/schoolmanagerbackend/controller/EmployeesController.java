@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import pro.sorokovsky.schoolmanagerbackend.contract.employee.CreateEmployee;
 import pro.sorokovsky.schoolmanagerbackend.contract.employee.GetEmployee;
+import pro.sorokovsky.schoolmanagerbackend.contract.passport.CreatePassport;
 import pro.sorokovsky.schoolmanagerbackend.exception.employee.EmployeeNotFoundException;
 import pro.sorokovsky.schoolmanagerbackend.mapper.EmployeeMapper;
 import pro.sorokovsky.schoolmanagerbackend.service.EmployeesService;
@@ -131,6 +132,146 @@ public class EmployeesController {
                 .toUri()).build();
     }
 
+    @Operation(summary = "Створення паспорту", description = "Створює паспорт для працівника працівника")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Успішне створення",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = GetEmployee.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Неавторизований",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "не знайдено",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
+            )
+    }
+    )
+    @PutMapping("add-passport/{id:\\d+}")
+    public ResponseEntity<GetEmployee> addPassport(
+            @PathVariable Integer id,
+            @Valid @RequestBody CreatePassport passport
+            ) {
+        return ResponseEntity
+                .ok(mapper.toGet(service.addPassport(id, passport)));
+    }
+
+    @PutMapping("remove-passport/{id:\\d+}/{passportId:\\d+}")
+    @Operation(summary = "Видалення паспорту", description = "Видаляє паспорт для працівника працівника")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Успішне видалення",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = GetEmployee.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Неавторизований",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "не знайдено",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
+            )
+    }
+    )
+    public ResponseEntity<GetEmployee> removePassport(@PathVariable Integer id, @PathVariable Integer passportId) {
+        return ResponseEntity
+                .ok(mapper.toGet(service.removePassport(id, passportId)));
+    }
+
+    @PutMapping("add-position/{id:\\d+}/{positionId:\\d+}")
+    @Operation(summary = "Прикріплення посади", description = "Прикріплює посаду до користувача")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Успішне прикріплення",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = GetEmployee.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Неавторизований",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "не знайдено",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
+            )
+    }
+    )
+    public ResponseEntity<GetEmployee> addPosition(@PathVariable Integer id, @PathVariable Integer positionId) {
+        return ResponseEntity
+                .ok(mapper.toGet(service.addPosition(id, positionId)));
+    }
+
+    @PutMapping("remove-position/{id:\\d+}/{positionId:\\d+}")
+    @Operation(summary = "Відкріплення посади", description = "Відкріплює посади від користувача")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Успішне відкріплення",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = GetEmployee.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Неавторизований",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "не знайдено",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
+            )
+    }
+    )
+    public ResponseEntity<GetEmployee> removePosition(@PathVariable Integer id, @PathVariable Integer positionId) {
+        return ResponseEntity
+                .ok(mapper.toGet(service.removePosition(id, positionId)));
+    }
+
+    @DeleteMapping("{id:\\d+}")
     @Operation(summary = "Видалення працівника", description = "Видаляє працівника")
     @ApiResponses(value = {
             @ApiResponse(
@@ -155,7 +296,6 @@ public class EmployeesController {
             )
     }
     )
-    @DeleteMapping("{id:\\d+}")
     public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();

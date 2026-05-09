@@ -4,11 +4,13 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@SuperBuilder
 @Table(schema = "dbo", name = "Passport")
 public class PassportEntity {
     @Id
@@ -21,4 +23,8 @@ public class PassportEntity {
 
     @Column(name = "Data", nullable = false, length = 1000)
     private String data;
+
+    @ManyToOne
+    @JoinColumn(name = "EmployeeId", nullable = false)
+    private EmployeeEntity employee;
 }
