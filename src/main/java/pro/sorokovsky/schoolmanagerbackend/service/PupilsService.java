@@ -3,7 +3,6 @@ package pro.sorokovsky.schoolmanagerbackend.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pro.sorokovsky.schoolmanagerbackend.entity.PupilEntity;
-import pro.sorokovsky.schoolmanagerbackend.repository.ParentsRepository;
 import pro.sorokovsky.schoolmanagerbackend.repository.PupilsRepository;
 
 import java.util.List;
