@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(schema = "dbo", name = "Parents")
 @PrimaryKeyJoinColumn(name = "UserId")
+@SuperBuilder
 public class ParentEntity extends UserEntity {
     @Column(name = "Job", length = 1000)
     private String job;
