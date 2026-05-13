@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pro.sorokovsky.schoolmanagerbackend.contract.parent.CreateParent;
+import pro.sorokovsky.schoolmanagerbackend.contract.parent.UpdateParent;
 import pro.sorokovsky.schoolmanagerbackend.entity.ParentEntity;
+import pro.sorokovsky.schoolmanagerbackend.exception.parent.ParentAlreadyExistsByPhoneNumber;
 import pro.sorokovsky.schoolmanagerbackend.exception.parent.ParentAlreadyExistsException;
-import pro.sorokovsky.schoolmanagerbackend.exception.user.UserAlreadyExistsException;
+import pro.sorokovsky.schoolmanagerbackend.exception.parent.ParentNotFoundException;
 import pro.sorokovsky.schoolmanagerbackend.exception.user.UserNotFoundException;
 import pro.sorokovsky.schoolmanagerbackend.repository.ParentsRepository;
 
@@ -36,6 +38,9 @@ public class ParentsService {
         if(getById(parent.userId()).isPresent()) {
             throw new ParentAlreadyExistsException();
         }
+        if (repository.existsByPhoneNumber(parent.phoneNumber())) {
+            throw new ParentAlreadyExistsByPhoneNumber();
+        }
         var user = usersService.getById(parent.userId()).orElseThrow(UserNotFoundException::new);
         var newParent = ParentEntity
                 .builder()
@@ -52,5 +57,25 @@ public class ParentsService {
                 .phoneNumber(parent.phoneNumber())
                 .build();
         return repository.save(newParent);
+    }
+
+    @Transactional
+    public ParentEntity update(Integer id, UpdateParent parent) {
+        if (repository.existsByPhoneNumber(parent.phoneNumber())) {
+            throw new ParentAlreadyExistsByPhoneNumber();
+        }
+        var candidate = repository.findById(id).orElseThrow(ParentNotFoundException::new);
+        if (parent.phoneNumber() != null) {
+            candidate.setPhoneNumber(parent.phoneNumber());
+        }
+        if (parent.job() != null) {
+            candidate.setJob(parent.job());
+        }
+        return repository.save(candidate);
+    }
+
+    @Transactional
+    public void deleteById(Integer id) {
+        repository.deleteById(id);
     }
 }

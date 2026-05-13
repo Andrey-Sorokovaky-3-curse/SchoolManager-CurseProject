@@ -19,7 +19,8 @@ public record CreateParent(
         @Schema(
                 description = "Місце роботи/посада",
                 example = "фрілансер",
-                requiredMode = Schema.RequiredMode.REQUIRED
+                requiredMode = Schema.RequiredMode.REQUIRED,
+                maxLength = 1000
         )
         @NotBlank(message = "{errors.parents.job.none}")
         @Size(max = 1000, message = "{errors.parents.job.size}")
@@ -29,7 +30,8 @@ public record CreateParent(
         @Schema(
                 description = "Номер телефону",
                 example = "+380673389286",
-                requiredMode = Schema.RequiredMode.REQUIRED
+                requiredMode = Schema.RequiredMode.REQUIRED,
+                maxLength = 20
         )
         @NotBlank(message = "{errors.parents.phone.none}")
         @Pattern(

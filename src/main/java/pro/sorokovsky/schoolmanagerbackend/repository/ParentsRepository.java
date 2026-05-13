@@ -19,4 +19,6 @@ public interface ParentsRepository extends CrudRepository<ParentEntity, Integer>
             OR parent.id IN (SELECT pupil.mother.id FROM PupilEntity pupil WHERE pupil.id = :pupilId)
 """)
     List<ParentEntity> findAllByPupil(@Param("pupilId") Integer pupilId);
+
+    boolean existsByPhoneNumber(String phoneNumber);
 }
