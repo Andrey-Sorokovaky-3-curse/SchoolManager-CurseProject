@@ -1,0 +1,15 @@
+DELETE FROM Schedules;
+DELETE FROM Subjects;
+DELETE FROM Pupils;
+DELETE FROM Classes;
+DELETE FROM ClassTypes;
+DELETE FROM EmployeesPositions;
+DELETE FROM PositionsRequirements;
+DELETE FROM PositionsResponsibilities;
+DELETE FROM Passport;
+DELETE FROM Employees;
+DELETE FROM Parents;
+DELETE FROM Users;
+DELETE FROM Positions;
+DELETE FROM Requirements;
+DELETE FROM Responsibilities;

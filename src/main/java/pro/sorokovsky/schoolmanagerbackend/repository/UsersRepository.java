@@ -11,4 +11,6 @@ public interface UsersRepository extends CrudRepository<UserEntity, Integer> {
     Optional<UserEntity> findByLogin(String login);
     Optional<UserEntity> findById(Integer id);
     UserEntity save(UserEntity user);
+
+    boolean existsByLogin(String login);
 }

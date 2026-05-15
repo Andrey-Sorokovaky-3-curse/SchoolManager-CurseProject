@@ -2,9 +2,9 @@ package pro.sorokovsky.schoolmanagerbackend.entity;
 
 public enum Roles {
     USER("USER"),
-    PARENT("ParentModel"),
-    EMPLOYEE("EmployeeModel"),
-    PUPIL("PupilModel");
+    PARENT("PARENT"),
+    EMPLOYEE("EMPLOYEE"),
+    PUPIL("PUPIL");
 
     private final String role;
 

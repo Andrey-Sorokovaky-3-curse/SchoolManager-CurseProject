@@ -11,6 +11,7 @@ import pro.sorokovsky.schoolmanagerbackend.contract.user.CreateUser;
 import pro.sorokovsky.schoolmanagerbackend.contract.user.UpdateUser;
 import pro.sorokovsky.schoolmanagerbackend.entity.Roles;
 import pro.sorokovsky.schoolmanagerbackend.entity.UserEntity;
+import pro.sorokovsky.schoolmanagerbackend.exception.user.UserAlreadyExistsException;
 import pro.sorokovsky.schoolmanagerbackend.repository.UsersRepository;
 
 import java.util.Optional;
@@ -22,6 +23,9 @@ public class UsersService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     public UserEntity create(@NonNull CreateUser newUser) {
+        if (repository.existsByLogin(newUser.login())) {
+            throw new UserAlreadyExistsException();
+        }
         return repository.save(UserEntity
                 .builder()
                 .login(newUser.login())

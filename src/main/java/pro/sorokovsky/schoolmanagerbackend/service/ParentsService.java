@@ -1,11 +1,13 @@
 package pro.sorokovsky.schoolmanagerbackend.service;
 
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pro.sorokovsky.schoolmanagerbackend.contract.parent.CreateParent;
 import pro.sorokovsky.schoolmanagerbackend.contract.parent.UpdateParent;
 import pro.sorokovsky.schoolmanagerbackend.entity.ParentEntity;
+import pro.sorokovsky.schoolmanagerbackend.entity.Roles;
 import pro.sorokovsky.schoolmanagerbackend.exception.parent.ParentAlreadyExistsByPhoneNumber;
 import pro.sorokovsky.schoolmanagerbackend.exception.parent.ParentAlreadyExistsException;
 import pro.sorokovsky.schoolmanagerbackend.exception.parent.ParentNotFoundException;
@@ -20,6 +22,7 @@ import java.util.Optional;
 public class ParentsService {
     private final ParentsRepository repository;
     private final UsersService usersService;
+    private final EntityManager entityManager;
 
     public List<ParentEntity> getAll() {
         return repository.findAll();
@@ -42,21 +45,17 @@ public class ParentsService {
             throw new ParentAlreadyExistsByPhoneNumber();
         }
         var user = usersService.getById(parent.userId()).orElseThrow(UserNotFoundException::new);
-        var newParent = ParentEntity
-                .builder()
-                .id(user.getId())
-                .login(user.getLogin())
-                .password(user.getPassword())
-                .role(user.getRole())
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .middleName(user.getMiddleName())
-                .gender(user.getGender())
-                .address(user.getAddress())
-                .job(parent.job())
-                .phoneNumber(parent.phoneNumber())
-                .build();
-        return repository.save(newParent);
+        var sql = """  
+            INSERT INTO Parents(UserId, Job, PhoneNumber) VALUES (:userId, :job, :phoneNumber);
+            UPDATE Users SET Role = :role WHERE Id = :userId;
+            """;
+        entityManager.createNativeQuery(sql)
+                .setParameter("userId", user.getId())
+                .setParameter("job", parent.job())
+                .setParameter("phoneNumber", parent.phoneNumber())
+                .setParameter("role", Roles.USER)
+                .executeUpdate();
+        return getById(user.getId()).orElseThrow(ParentNotFoundException::new);
     }
 
     @Transactional

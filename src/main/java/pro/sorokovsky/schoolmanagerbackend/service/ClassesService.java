@@ -6,6 +6,7 @@ import pro.sorokovsky.schoolmanagerbackend.entity.ClassEntity;
 import pro.sorokovsky.schoolmanagerbackend.repository.ClassesRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,5 +19,9 @@ public class ClassesService {
 
     public List<ClassEntity> getByClassTypeId(Integer classTypeId) {
         return repository.findAllByClassTypeId(classTypeId);
+    }
+
+    public Optional<ClassEntity> getById(Integer integer) {
+        return repository.findById(integer);
     }
 }

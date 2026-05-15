@@ -8,6 +8,7 @@ import pro.sorokovsky.schoolmanagerbackend.contract.employee.CreateEmployee;
 import pro.sorokovsky.schoolmanagerbackend.contract.passport.CreatePassport;
 import pro.sorokovsky.schoolmanagerbackend.entity.EmployeeEntity;
 import pro.sorokovsky.schoolmanagerbackend.entity.PassportEntity;
+import pro.sorokovsky.schoolmanagerbackend.entity.Roles;
 import pro.sorokovsky.schoolmanagerbackend.exception.employee.*;
 import pro.sorokovsky.schoolmanagerbackend.exception.position.PositionNotFoundException;
 import pro.sorokovsky.schoolmanagerbackend.exception.user.UserNotFoundException;
@@ -46,10 +47,12 @@ public class EmployeesService {
         final var user = usersService.getById(employee.userId()).orElseThrow(UserNotFoundException::new);
        final var sql = """
                INSERT INTO Employees (UserId, PhoneNumber) VALUES (:userId, :phoneNumber);
+               UPDATE Users SET Role=:role WHERE Id = :userId;
                """;
        entityManager.createNativeQuery(sql)
                .setParameter("userId", employee.userId())
                .setParameter("phoneNumber", employee.phoneNumber())
+               .setParameter("role", Roles.EMPLOYEE)
                .executeUpdate();
         return repository.findById(user.getId()).orElseThrow(EmployeeNotFoundException::new);
     }
