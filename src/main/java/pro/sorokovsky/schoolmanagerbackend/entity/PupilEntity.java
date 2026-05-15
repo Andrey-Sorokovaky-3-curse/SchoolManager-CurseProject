@@ -17,11 +17,11 @@ import lombok.experimental.SuperBuilder;
 @PrimaryKeyJoinColumn(name = "UserId")
 public class PupilEntity extends UserEntity {
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "FatherId")
+    @JoinColumn(name = "FatherId", referencedColumnName = "Id")
     private ParentEntity father;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "MotherId")
+    @JoinColumn(name = "MotherId", referencedColumnName = "Id")
     private ParentEntity mother;
 
     @Column(name = "ExtraInformation", nullable = false, length = 1000)

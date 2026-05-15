@@ -3,6 +3,7 @@ package pro.sorokovsky.schoolmanagerbackend.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Formula;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,9 @@ import java.util.List;
 @Table(schema = "dbo", name = "Employees")
 @PrimaryKeyJoinColumn(name = "UserId")
 public class EmployeeEntity extends UserEntity {
+
+    @Column(name = "Id")
+    private Integer employeeId;
 
     @Column(name = "PhoneNumber", nullable = false, unique = true)
     private String phoneNumber;

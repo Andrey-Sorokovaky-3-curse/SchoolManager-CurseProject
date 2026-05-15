@@ -20,7 +20,7 @@ public class ClassEntity {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CuratorId")
+    @JoinColumn(name = "CuratorId", referencedColumnName = "Id")
     private EmployeeEntity curator;
 
     @ManyToOne(fetch = FetchType.EAGER)

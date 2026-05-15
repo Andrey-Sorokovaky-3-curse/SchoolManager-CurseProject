@@ -19,6 +19,9 @@ import lombok.experimental.SuperBuilder;
 @PrimaryKeyJoinColumn(name = "UserId")
 @SuperBuilder
 public class ParentEntity extends UserEntity {
+    @Column(name = "Id")
+    private Integer parentId;
+
     @Column(name = "Job", length = 1000)
     private String job;
 
