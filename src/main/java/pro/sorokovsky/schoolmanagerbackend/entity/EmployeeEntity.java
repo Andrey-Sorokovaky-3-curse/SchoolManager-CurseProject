@@ -27,14 +27,14 @@ public class EmployeeEntity extends UserEntity {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "EmployeesPositions",
-            joinColumns = @JoinColumn(name = "EmployeeId"),
+            joinColumns = @JoinColumn(name = "EmployeeId", referencedColumnName = "Id"),
             inverseJoinColumns = @JoinColumn(name = "PositionId")
     )
     @Builder.Default
     private List<PositionEntity> positions = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "EmployeeId")
+    @JoinColumn(name = "EmployeeId", referencedColumnName = "Id")
     @Builder.Default
     private List<PassportEntity> passports = new ArrayList<>();
 }

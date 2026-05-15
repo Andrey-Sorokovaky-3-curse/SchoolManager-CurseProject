@@ -25,6 +25,6 @@ public class SubjectEntity {
     private String description;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "TeacherId", nullable = false)
+    @JoinColumn(name = "TeacherId", nullable = false, referencedColumnName = "Id")
     private EmployeeEntity teacher;
 }
