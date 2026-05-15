@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface SubjectsRepository extends CrudRepository<SubjectEntity, Integer> {
     List<SubjectEntity> findAllByTeacherId(Integer teacherId);
+    List<SubjectEntity> findAll();
 }
