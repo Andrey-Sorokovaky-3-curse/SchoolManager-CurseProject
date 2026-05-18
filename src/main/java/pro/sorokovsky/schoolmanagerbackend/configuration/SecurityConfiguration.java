@@ -3,12 +3,16 @@ package pro.sorokovsky.schoolmanagerbackend.configuration;
 import org.jspecify.annotations.NonNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import pro.sorokovsky.schoolmanagerbackend.configurer.JwtAuthenticationConfigurer;
 import pro.sorokovsky.schoolmanagerbackend.factory.DefaultAccessTokenFactory;
 import pro.sorokovsky.schoolmanagerbackend.factory.DefaultRefreshTokenFactory;
@@ -19,20 +23,23 @@ import pro.sorokovsky.schoolmanagerbackend.service.UsersService;
 import pro.sorokovsky.schoolmanagerbackend.storage.BearerTokenStorage;
 import pro.sorokovsky.schoolmanagerbackend.storage.CookieTokenStorage;
 
+import java.util.List;
+
 @Configuration
 public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(
             @NonNull HttpSecurity http,
             JwtAuthenticationConfigurer jwtAuthenticationConfigurer,
-            UnauthenticatedEntryPoint unauthenticatedEntryPoint
+            UnauthenticatedEntryPoint unauthenticatedEntryPoint,
+            CorsConfigurationSource corsConfigurationSource
     ) throws Exception {
         http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
                 .requestMatchers("/swagger-ui/**", "/v3/**").permitAll()
                 .requestMatchers("/authorization/login", "/authorization/register").anonymous()
                 .anyRequest().authenticated()
         );
-        http.cors(AbstractHttpConfigurer::disable);
+        http.cors(cors -> cors.configurationSource(corsConfigurationSource));
         http.csrf(AbstractHttpConfigurer::disable);
         http.sessionManagement(sessionManagement -> sessionManagement
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -89,5 +96,19 @@ public class SecurityConfiguration {
                 .refreshTokenStorage(refreshTokenStorage)
                 .usersService(usersService)
                 .build();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+        configuration.setAllowedMethods(List.of("*"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setExposedHeaders(List.of(HttpHeaders.AUTHORIZATION));
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
