@@ -20,4 +20,6 @@ public interface EmployeesRepository extends CrudRepository<EmployeeEntity, Inte
     @Modifying
     @Query("DELETE FROM EmployeeEntity e WHERE e.id = :id")
     void deleteById(@NonNull @Param("id") Integer id);
+
+    List<EmployeeEntity> findAll();
 }

@@ -59,6 +59,32 @@ public class EmployeesController {
         return ResponseEntity.ok().body(service.getByPosition(positionId).stream().map(mapper::toGet).toList());
     }
 
+    @Operation(summary = "Відділ кадрів", description = "Отримує працівників")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Успішне отримання",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            array = @ArraySchema(
+                                    schema = @Schema(implementation = GetEmployee.class)
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Неавторизований",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ProblemDetail.class)
+                    )
+            ),
+    })
+    @GetMapping
+    public ResponseEntity<List<GetEmployee>> getAll() {
+        return ResponseEntity.ok(service.getAll().stream().map(mapper::toGet).toList());
+    }
+
     @Operation(summary = "Працівник", description = "Отримує працівника за ідентифікатором")
     @ApiResponses(value = {
             @ApiResponse(

@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pro.sorokovsky.schoolmanagerbackend.contract.employee.CreateEmployee;
+import pro.sorokovsky.schoolmanagerbackend.contract.employee.GetEmployee;
 import pro.sorokovsky.schoolmanagerbackend.contract.passport.CreatePassport;
 import pro.sorokovsky.schoolmanagerbackend.entity.EmployeeEntity;
 import pro.sorokovsky.schoolmanagerbackend.entity.PassportEntity;
@@ -113,5 +114,9 @@ public class EmployeesService {
         } else {
             throw new EmployeeNotFoundException();
         }
+    }
+
+    public List<EmployeeEntity> getAll() {
+        return repository.findAll();
     }
 }
