@@ -46,15 +46,20 @@ public class EmployeesService {
             throw new EmployeeAlreadyExistsByUserException();
         }
         final var user = usersService.getById(employee.userId()).orElseThrow(UserNotFoundException::new);
-       final var sql = """
+       final var insertSql = """
                INSERT INTO Employees (UserId, PhoneNumber) VALUES (:userId, :phoneNumber);
-               UPDATE Users SET Role=:role WHERE Id = :userId;
                """;
-       entityManager.createNativeQuery(sql)
+       final var updateSQL = "UPDATE Users SET Role=:role WHERE Id = :userId;";
+       entityManager.createNativeQuery(insertSql)
                .setParameter("userId", employee.userId())
                .setParameter("phoneNumber", employee.phoneNumber())
-               .setParameter("role", Roles.EMPLOYEE)
                .executeUpdate();
+        entityManager.createNativeQuery(updateSQL)
+                .setParameter("role", Roles.EMPLOYEE.value())
+                .setParameter("userId", employee.userId())
+                .executeUpdate();
+        entityManager.flush();
+        entityManager.clear();
         return repository.findById(user.getId()).orElseThrow(EmployeeNotFoundException::new);
     }
 
