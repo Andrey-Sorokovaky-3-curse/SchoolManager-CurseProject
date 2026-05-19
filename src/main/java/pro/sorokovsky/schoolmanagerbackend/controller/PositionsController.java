@@ -33,6 +33,11 @@ public class PositionsController {
     private final PositionsService service;
     private final PositionMapper mapper;
 
+    @GetMapping
+    public ResponseEntity<List<GetPosition>> getAll() {
+        return ResponseEntity.ok(service.getAll().stream().map(mapper::toGet).toList());
+    }
+
     @GetMapping("by-id/{id:\\d+}")
     @Operation(summary = "Конкретна посада", description = "Отримує посаду за ідинтифікатором")
     @ApiResponses(value = {

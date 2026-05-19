@@ -79,6 +79,10 @@ public class PositionsService {
 
     }
 
+    public List<PositionEntity> getAll() {
+        return repository.findAll();
+    }
+
     @Transactional
     public PositionEntity addResponsibility(Integer id, Integer responsibilityId) {
         final var candidate = getById(id).orElseThrow(PositionNotFoundException::new);

@@ -12,4 +12,6 @@ import java.util.List;
 public interface PositionsRepository extends CrudRepository<PositionEntity, Integer> {
     @Query("SELECT p FROM PositionEntity p WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :term, '%') ) ")
     List<PositionEntity> findAllByTerm(@Param("term") String term);
+
+    List<PositionEntity> findAll();
 }
