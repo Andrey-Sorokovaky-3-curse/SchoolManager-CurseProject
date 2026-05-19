@@ -27,6 +27,13 @@ public record GetUser(
         String firstName,
 
         @Schema(
+                description = "Роль користувача",
+                example = "ADMIN",
+                requiredMode = Schema.RequiredMode.REQUIRED
+        )
+        String role,
+
+        @Schema(
                 description = "Прізвище користувача",
                 example = "Сороковський",
                 requiredMode = Schema.RequiredMode.REQUIRED

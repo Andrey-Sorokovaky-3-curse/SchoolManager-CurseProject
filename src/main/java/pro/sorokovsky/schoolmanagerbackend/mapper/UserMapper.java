@@ -13,6 +13,7 @@ public class UserMapper {
                 entity.getId(),
                 entity.getLogin(),
                 entity.getFirstName(),
+                entity.getRole(),
                 entity.getLastName(),
                 entity.getMiddleName(),
                 entity.getBirthday(),
