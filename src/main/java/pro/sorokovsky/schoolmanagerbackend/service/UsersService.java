@@ -14,6 +14,8 @@ import pro.sorokovsky.schoolmanagerbackend.entity.UserEntity;
 import pro.sorokovsky.schoolmanagerbackend.exception.user.UserAlreadyExistsException;
 import pro.sorokovsky.schoolmanagerbackend.repository.UsersRepository;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -69,5 +71,9 @@ public class UsersService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return repository.findByLogin(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
+    }
+
+    public List<UserEntity> getAll() {
+        return repository.findAll();
     }
 }

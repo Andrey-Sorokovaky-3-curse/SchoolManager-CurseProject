@@ -4,6 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import pro.sorokovsky.schoolmanagerbackend.entity.UserEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -13,4 +14,6 @@ public interface UsersRepository extends CrudRepository<UserEntity, Integer> {
     UserEntity save(UserEntity user);
 
     boolean existsByLogin(String login);
+
+    List<UserEntity> findAll();
 }

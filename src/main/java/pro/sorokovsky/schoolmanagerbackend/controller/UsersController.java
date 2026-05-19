@@ -23,6 +23,8 @@ import pro.sorokovsky.schoolmanagerbackend.mapper.UserMapper;
 import pro.sorokovsky.schoolmanagerbackend.service.AuthorizationService;
 import pro.sorokovsky.schoolmanagerbackend.service.UsersService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("users")
 @RequiredArgsConstructor
@@ -92,5 +94,10 @@ public class UsersController {
         service.delete(user.getId());
         authorizationService.logout(response);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<GetUser>> getAll() {
+        return ResponseEntity.ok(service.getAll().stream().map(mapper::toGet).toList());
     }
 }
