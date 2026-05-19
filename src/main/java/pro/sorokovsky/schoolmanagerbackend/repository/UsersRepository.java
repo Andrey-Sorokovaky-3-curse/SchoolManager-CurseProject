@@ -18,6 +18,6 @@ public interface UsersRepository extends CrudRepository<UserEntity, Integer> {
 
     List<UserEntity> findAll();
 
-    @Query("SELECT user FROM UserEntity user WHERE user.role = USER")
+    @Query("SELECT user FROM UserEntity user WHERE user.role = 'USER'")
     List<UserEntity> findAllUsers();
 }
