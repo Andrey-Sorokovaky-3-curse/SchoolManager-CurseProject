@@ -1,5 +1,6 @@
 package pro.sorokovsky.schoolmanagerbackend.repository;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import pro.sorokovsky.schoolmanagerbackend.entity.UserEntity;
@@ -16,4 +17,7 @@ public interface UsersRepository extends CrudRepository<UserEntity, Integer> {
     boolean existsByLogin(String login);
 
     List<UserEntity> findAll();
+
+    @Query("SELECT user FROM UserEntity user WHERE user.role = USER")
+    List<UserEntity> findAllUsers();
 }

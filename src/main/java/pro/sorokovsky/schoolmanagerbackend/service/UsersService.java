@@ -73,7 +73,7 @@ public class UsersService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(username));
     }
 
-    public List<UserEntity> getAll() {
-        return repository.findAll();
+    public List<UserEntity> getAllUsers() {
+        return repository.findAllUsers();
     }
 }

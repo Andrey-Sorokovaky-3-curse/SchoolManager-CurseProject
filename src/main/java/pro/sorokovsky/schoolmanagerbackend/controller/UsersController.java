@@ -97,7 +97,7 @@ public class UsersController {
     }
 
     @GetMapping
-    public ResponseEntity<List<GetUser>> getAll() {
-        return ResponseEntity.ok(service.getAll().stream().map(mapper::toGet).toList());
+    public ResponseEntity<List<GetUser>> getAllUsers() {
+        return ResponseEntity.ok(service.getAllUsers().stream().map(mapper::toGet).toList());
     }
 }
