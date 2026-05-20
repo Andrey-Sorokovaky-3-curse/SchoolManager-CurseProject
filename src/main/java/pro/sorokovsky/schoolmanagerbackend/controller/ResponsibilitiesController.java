@@ -15,7 +15,6 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import pro.sorokovsky.schoolmanagerbackend.contract.requirement.GetRequirement;
 import pro.sorokovsky.schoolmanagerbackend.contract.responsibility.CreateResponsibility;
 import pro.sorokovsky.schoolmanagerbackend.contract.responsibility.GetResponsibility;
 import pro.sorokovsky.schoolmanagerbackend.contract.responsibility.UpdateResponsibility;
