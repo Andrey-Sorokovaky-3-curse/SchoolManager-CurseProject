@@ -8,6 +8,7 @@ import pro.sorokovsky.schoolmanagerbackend.entity.ResponsibilityEntity;
 import pro.sorokovsky.schoolmanagerbackend.exception.responsibility.ResponsibilityNotFoundException;
 import pro.sorokovsky.schoolmanagerbackend.repository.ResponsibilitiesRepository;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,5 +50,9 @@ public class ResponsibilitiesService {
         } else {
             throw new ResponsibilityNotFoundException();
         }
+    }
+
+    public List<ResponsibilityEntity> getAll() {
+        return repository.findAll();
     }
 }

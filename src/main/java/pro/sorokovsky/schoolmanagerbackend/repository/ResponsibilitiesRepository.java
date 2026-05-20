@@ -17,4 +17,6 @@ public interface ResponsibilitiesRepository extends CrudRepository<Responsibilit
     List<ResponsibilityEntity> search(@Param("term") String term);
 
     boolean existsById(@NonNull Integer id);
+
+    List<ResponsibilityEntity> findAll();
 }

@@ -65,6 +65,11 @@ public class ResponsibilitiesController {
         return ResponseEntity.ok(service.getById(id).map(mapper::toGet).orElseThrow(ResponsibilityNotFoundException::new));
     }
 
+    @GetMapping
+    public ResponseEntity<List<GetResponsibility>> getAll() {
+        return ResponseEntity.ok(service.getAll().stream().map(mapper::toGet).toList());
+    }
+
     @Operation(summary = "Пошук відповідальності", description = "Шукає відповідальності по всім полям")
     @ApiResponses(value = {
             @ApiResponse(
