@@ -3,7 +3,6 @@ package pro.sorokovsky.schoolmanagerbackend.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.Formula;
 
 import java.util.ArrayList;
 import java.util.List;
