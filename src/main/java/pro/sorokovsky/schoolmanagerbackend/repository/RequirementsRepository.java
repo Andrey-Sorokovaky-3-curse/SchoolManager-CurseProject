@@ -17,4 +17,6 @@ public interface RequirementsRepository extends CrudRepository<RequirementEntity
     List<RequirementEntity> search(@Param("term") String term);
 
     boolean existsById(@NonNull Integer id);
+
+    List<RequirementEntity> findAll();
 }

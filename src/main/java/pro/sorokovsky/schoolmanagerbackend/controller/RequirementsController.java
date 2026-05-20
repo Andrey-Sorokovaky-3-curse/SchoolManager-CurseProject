@@ -64,6 +64,11 @@ public class RequirementsController {
         return ResponseEntity.ok(service.getById(id).map(mapper::toGet).orElseThrow(RequirementNotFoundException::new));
     }
 
+    @GetMapping
+    public ResponseEntity<List<GetRequirement>> getAll() {
+        return ResponseEntity.ok(service.getAll().stream().map(mapper::toGet).toList());
+    }
+
     @Operation(summary = "Пошук вимоги", description = "Шукає вимоги по всім полям")
     @ApiResponses(value = {
             @ApiResponse(

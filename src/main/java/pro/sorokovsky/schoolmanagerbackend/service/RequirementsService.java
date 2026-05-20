@@ -28,6 +28,10 @@ public class RequirementsService {
         return repository.search(term);
     }
 
+    public List<RequirementEntity> getAll() {
+        return repository.findAll();
+    }
+
     @Transactional
     public RequirementEntity create(CreateRequirement requirement) {
         return repository.save(RequirementEntity.builder().name(requirement.name()).description(requirement.description()).build());
