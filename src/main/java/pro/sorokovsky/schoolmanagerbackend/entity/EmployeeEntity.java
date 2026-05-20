@@ -33,7 +33,7 @@ public class EmployeeEntity extends UserEntity {
     private List<PositionEntity> positions = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "EmployeeId", referencedColumnName = "Id")
+    @JoinColumn(name = "EmployeeId", referencedColumnName = "UserId")
     @Builder.Default
     private List<PassportEntity> passports = new ArrayList<>();
 }
