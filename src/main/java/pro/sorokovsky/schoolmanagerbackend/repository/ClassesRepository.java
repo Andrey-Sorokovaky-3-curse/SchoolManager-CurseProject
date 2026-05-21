@@ -19,7 +19,7 @@ public interface ClassesRepository extends CrudRepository<ClassEntity, Integer> 
             value = "SELECT CAST(" +
                     "   IIF(EXISTS (" +
                     "       SELECT 1 FROM Classes " +
-                    "       WHERE CONCAT(Letter, '-', StudyYear) = :name" +
+                    "       WHERE CONCAT(StudyYear, '-', Letter) = :name" +
                     "" +
                     "   ), 1, 0) AS BIT)" +
                     "",
