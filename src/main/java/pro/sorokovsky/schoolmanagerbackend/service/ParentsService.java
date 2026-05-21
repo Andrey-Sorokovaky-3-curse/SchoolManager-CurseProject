@@ -53,8 +53,10 @@ public class ParentsService {
                 .setParameter("userId", user.getId())
                 .setParameter("job", parent.job())
                 .setParameter("phoneNumber", parent.phoneNumber())
-                .setParameter("role", Roles.USER)
+                .setParameter("role", Roles.USER.value())
                 .executeUpdate();
+        entityManager.flush();
+        entityManager.clear();
         return getById(user.getId()).orElseThrow(ParentNotFoundException::new);
     }
 
