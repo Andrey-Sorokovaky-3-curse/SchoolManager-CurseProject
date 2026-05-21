@@ -16,7 +16,13 @@ public interface ClassesRepository extends CrudRepository<ClassEntity, Integer> 
     List<ClassEntity> findAll();
 
     @Query(
-            value = "SELECT EXISTS(SELECT 1 FROM Classes WHERE CONCAT(Letter, '-', StudyYear) = :name)",
+            value = "SELECT CAST(" +
+                    "   IIF(EXISTS (" +
+                    "       SELECT 1 FROM Classes " +
+                    "       WHERE CONCAT(Letter, '-', StudyYear) = :name" +
+                    "" +
+                    "   ), 1, 0) AS BIT)" +
+                    "",
             nativeQuery = true)
     boolean existsByName(@Param("name") String name);
 
