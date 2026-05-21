@@ -53,7 +53,7 @@ public class ParentsService {
                 .setParameter("userId", user.getId())
                 .setParameter("job", parent.job())
                 .setParameter("phoneNumber", parent.phoneNumber())
-                .setParameter("role", Roles.USER.value())
+                .setParameter("role", Roles.PARENT.value())
                 .executeUpdate();
         entityManager.flush();
         entityManager.clear();
