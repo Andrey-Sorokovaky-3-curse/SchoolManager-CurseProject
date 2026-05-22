@@ -7,15 +7,16 @@ import pro.sorokovsky.schoolmanagerbackend.entity.ScheduleEntity;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.List;
 
 @Repository
 public interface SchedulesRepository extends CrudRepository<ScheduleEntity, Integer> {
     List<ScheduleEntity> findAll();
 
-    boolean existsByDateAndStartTimeAndClazzId(Date date, Time startTime, Integer classId);
+    boolean existsByDateAndStartTimeAndClazzId(Date date, LocalTime startTime, Integer classId);
 
-    boolean existsByDateAndStartTimeAndSubjectId(Date date, Time startTime, Integer subjectId);
+    boolean existsByDateAndStartTimeAndSubjectId(Date date, LocalTime startTime, Integer subjectId);
 
     boolean existsById(@NonNull Integer id);
 

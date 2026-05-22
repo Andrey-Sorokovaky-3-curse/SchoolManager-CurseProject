@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
@@ -36,8 +37,8 @@ public class ScheduleEntity {
     private Integer dateOfWeek;
 
     @Column(name = "StartTime", nullable = false)
-    private Time startTime;
+    private LocalTime startTime;
 
     @Column(name = "EndTime", nullable = false)
-    private Time endTime;
+    private LocalTime endTime;
 }

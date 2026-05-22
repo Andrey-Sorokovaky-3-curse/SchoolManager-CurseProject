@@ -6,6 +6,7 @@ import pro.sorokovsky.schoolmanagerbackend.contract.subject.GetSubject;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalTime;
 
 @Schema(description = "Отримати розклад", requiredMode = Schema.RequiredMode.REQUIRED)
 public record GetSchedule(
@@ -38,13 +39,13 @@ public record GetSchedule(
                 requiredMode = Schema.RequiredMode.REQUIRED,
                 example = "11:00"
         )
-        Time startTime,
+        LocalTime startTime,
 
         @Schema(
                 description = "Дата проведення уроку",
                 requiredMode = Schema.RequiredMode.REQUIRED,
                 example = "11:45"
         )
-        Time endTime
+        LocalTime endTime
 ) {
 }

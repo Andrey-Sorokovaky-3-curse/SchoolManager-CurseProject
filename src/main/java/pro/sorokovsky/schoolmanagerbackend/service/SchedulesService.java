@@ -11,6 +11,7 @@ import pro.sorokovsky.schoolmanagerbackend.exception.schedule.ScheduleNotFoundEx
 import pro.sorokovsky.schoolmanagerbackend.exception.subject.SubjectNotFoundException;
 import pro.sorokovsky.schoolmanagerbackend.repository.SchedulesRepository;
 
+import java.sql.Time;
 import java.util.List;
 import java.util.Optional;
 
