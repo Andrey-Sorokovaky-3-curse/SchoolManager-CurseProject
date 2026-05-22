@@ -20,6 +20,9 @@ public class PupilEntity extends UserEntity {
     @JoinColumn(name = "FatherId", referencedColumnName = "Id")
     private ParentEntity father;
 
+    @Column(name = "Id")
+    private Integer pupilId;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "MotherId", referencedColumnName = "Id")
     private ParentEntity mother;

@@ -55,21 +55,29 @@ public class PupilsService {
         var user = usersService.getById(pupil.userId()).orElseThrow(UserNotFoundException::new);
         var clazz = classesService.getById(pupil.classId()).orElseThrow(ClassNotFoundException::new);
         var mother = parentsService.getById(pupil.motherId()).orElseThrow(ParentNotFoundException::new);
-        var father = usersService.getById(pupil.fatherId()).orElseThrow(ParentNotFoundException::new);
+        var father = parentsService.getById(pupil.fatherId()).orElseThrow(ParentNotFoundException::new);
         if (mother.getGender() != Gender.FEMALE) throw new MotherGenderException();
         if (father.getGender() != Gender.MALE) throw new FatherGenderException();
-        final var sql = """
+        final var insertSql = """
             INSERT INTO Pupils(UserId, FatherId, MotherId, ClassId, ExtraInformation)
             VALUES (:userId, :fatherId, :motherId, :classId, :extraInformation);
+""";
+        final var updateSql = """
             UPDATE Users SET Role=:role WHERE Id = :userId;
 """;
-        entityManager.createNativeQuery(sql)
-                .setParameter("userId", user.getId())
-                .setParameter("fatherId", father.getId())
-                .setParameter("motherId", mother.getId())
-                .setParameter("classId", clazz.getId())
+        entityManager.createNativeQuery(insertSql)
+                        .setParameter("userId", pupil.userId())
+                .setParameter("fatherId", father.getParentId())
+                .setParameter("motherId", mother.getParentId())
+                .setParameter("classId", pupil.classId())
                 .setParameter("extraInformation", pupil.extraInformation())
-                .setParameter("role", Roles.PUPIL);
+                .executeUpdate();
+        entityManager.createNativeQuery(updateSql)
+                .setParameter("userId", pupil.userId())
+                .setParameter("role", Roles.PUPIL.value())
+                .executeUpdate();
+        entityManager.flush();
+        entityManager.clear();
         return getById(user.getId()).orElseThrow(PupilNotFoundException::new);
     }
 
