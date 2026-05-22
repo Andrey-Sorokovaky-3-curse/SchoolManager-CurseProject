@@ -1,21 +1,12 @@
 package pro.sorokovsky.schoolmanagerbackend.contract.schedule;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import pro.sorokovsky.schoolmanagerbackend.contract.classes.GetClass;
-import pro.sorokovsky.schoolmanagerbackend.contract.subject.GetSubject;
 
 import java.sql.Date;
 import java.sql.Time;
 
 @Schema(description = "Новий розклад", requiredMode = Schema.RequiredMode.REQUIRED)
 public record CreateSchedule(
-        @Schema(
-                description = "Ідентифікатор розкладу",
-                requiredMode = Schema.RequiredMode.REQUIRED,
-                example = "1"
-        )
-        Integer id,
-
         Integer subjectId,
         Integer classId,
 
