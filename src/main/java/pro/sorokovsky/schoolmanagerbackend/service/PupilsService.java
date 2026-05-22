@@ -57,7 +57,7 @@ public class PupilsService {
         var mother = parentsService.getById(pupil.motherId()).orElseThrow(ParentNotFoundException::new);
         var father = usersService.getById(pupil.fatherId()).orElseThrow(ParentNotFoundException::new);
         if (mother.getGender() != Gender.FEMALE) throw new MotherGenderException();
-        if (father.getGender() != Gender.FEMALE) throw new FatherGenderException();
+        if (father.getGender() != Gender.MALE) throw new FatherGenderException();
         final var sql = """
             INSERT INTO Pupils(UserId, FatherId, MotherId, ClassId, ExtraInformation)
             VALUES (:userId, :fatherId, :motherId, :classId, :extraInformation);
