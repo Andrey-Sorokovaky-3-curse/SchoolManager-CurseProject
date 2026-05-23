@@ -29,7 +29,7 @@ public class EmployeesService {
     private final EntityManager entityManager;
 
     public List<EmployeeEntity> getByPosition(Integer positionId) {
-        return repository.findByPosition(positionId);
+        return repository.findAllByPositionsId(positionId);
     }
 
     public Optional<EmployeeEntity> getById(Integer id) {
