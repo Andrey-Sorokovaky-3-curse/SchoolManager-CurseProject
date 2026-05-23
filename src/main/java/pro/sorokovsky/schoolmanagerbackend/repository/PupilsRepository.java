@@ -17,6 +17,5 @@ public interface PupilsRepository extends CrudRepository<PupilEntity, Integer> {
     @Query("SELECT p FROM PupilEntity p WHERE p.clazz.id = :classId")
     List<PupilEntity> findAllByClass(@Param("classId") Integer classId);
 
-    @Query("SELECT pupil FROM PupilEntity pupil WHERE pupil.mother.id = :parentId OR pupil.father.id = :parentId")
-    List<PupilEntity> findAllByParent(@Param("parentId") Integer parentId);
+    List<PupilEntity> findAllByMotherIdOrFatherId(Integer motherId, Integer fatherId);
 }

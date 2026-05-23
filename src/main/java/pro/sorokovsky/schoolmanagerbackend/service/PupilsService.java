@@ -42,7 +42,7 @@ public class PupilsService {
     }
 
     public List<PupilEntity> getByParent(Integer parentId) {
-        return repository.findAllByParent(parentId);
+        return repository.findAllByMotherIdOrFatherId(parentId, parentId);
     }
 
 
