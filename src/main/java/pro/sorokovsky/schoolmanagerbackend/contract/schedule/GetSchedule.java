@@ -6,6 +6,7 @@ import pro.sorokovsky.schoolmanagerbackend.contract.subject.GetSubject;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Schema(description = "Отримати розклад", requiredMode = Schema.RequiredMode.REQUIRED)
@@ -25,7 +26,7 @@ public record GetSchedule(
                 requiredMode = Schema.RequiredMode.REQUIRED,
                 example = "2026-05-16"
         )
-        Date date,
+        LocalDate date,
 
         @Schema(
                 description = "День тижня",

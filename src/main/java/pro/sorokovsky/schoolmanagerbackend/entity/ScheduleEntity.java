@@ -6,8 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Data
@@ -30,15 +29,15 @@ public class ScheduleEntity {
     @JoinColumn(name = "ClassId", nullable = false)
     private ClassEntity clazz;
 
-    @Column(name = "Date", nullable = false)
-    private Date date;
+    @Column(name = "Date", nullable = false, columnDefinition = "DATE")
+    private LocalDate date;
 
     @Column(name = "DateOfWeek", nullable = false)
     private Integer dateOfWeek;
 
-    @Column(name = "StartTime", nullable = false)
+    @Column(name = "StartTime", nullable = false, columnDefinition = "TIME")
     private LocalTime startTime;
 
-    @Column(name = "EndTime", nullable = false)
+    @Column(name = "EndTime", nullable = false, columnDefinition = "TIME")
     private LocalTime endTime;
 }

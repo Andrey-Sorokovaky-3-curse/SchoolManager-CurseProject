@@ -3,6 +3,7 @@ package pro.sorokovsky.schoolmanagerbackend.contract.schedule;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Schema(description = "Новий розклад", requiredMode = Schema.RequiredMode.REQUIRED)
@@ -15,7 +16,7 @@ public record CreateSchedule(
                 requiredMode = Schema.RequiredMode.REQUIRED,
                 example = "2026-05-16"
         )
-        Date date,
+        LocalDate date,
 
         @Schema(
                 description = "День тижня",

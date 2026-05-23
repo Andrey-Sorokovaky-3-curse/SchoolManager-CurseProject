@@ -11,7 +11,6 @@ import pro.sorokovsky.schoolmanagerbackend.exception.schedule.ScheduleNotFoundEx
 import pro.sorokovsky.schoolmanagerbackend.exception.subject.SubjectNotFoundException;
 import pro.sorokovsky.schoolmanagerbackend.repository.SchedulesRepository;
 
-import java.sql.Time;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,9 +35,9 @@ public class SchedulesService {
 
     @Transactional
     public ScheduleEntity create(CreateSchedule schedule) {
-        if (repository.existsByDateAndStartTimeAndClazzId(schedule.date(), schedule.startTime(), schedule.classId())) {
+        if (repository.existsBySubject(schedule.date(), schedule.startTime(), schedule.classId()) == 1) {
             throw new ClassBusyException();
-        } else if (repository.existsByDateAndStartTimeAndSubjectId(schedule.date(), schedule.startTime(), schedule.subjectId())) {
+        } else if (repository.existsByClass(schedule.date(), schedule.startTime(), schedule.subjectId()) == 1) {
             throw new ClassBusyException();
         } else {
             return repository.save(
