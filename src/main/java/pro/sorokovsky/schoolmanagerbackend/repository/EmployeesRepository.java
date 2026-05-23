@@ -18,7 +18,7 @@ public interface EmployeesRepository extends CrudRepository<EmployeeEntity, Inte
     boolean existsByPhoneNumber(String phoneNumber);
 
     @Modifying
-    @Query("DELETE FROM EmployeeEntity e WHERE e.id = :id")
+    @Query(value = "DELETE FROM Employees WHERE Id = :id OR UserId = :id", nativeQuery = true)
     void deleteById(@NonNull @Param("id") Integer id);
 
     List<EmployeeEntity> findAll();

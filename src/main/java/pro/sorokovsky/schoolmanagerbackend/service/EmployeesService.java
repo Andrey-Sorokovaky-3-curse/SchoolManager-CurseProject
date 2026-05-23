@@ -2,10 +2,10 @@ package pro.sorokovsky.schoolmanagerbackend.service;
 
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pro.sorokovsky.schoolmanagerbackend.contract.employee.CreateEmployee;
-import pro.sorokovsky.schoolmanagerbackend.contract.employee.GetEmployee;
 import pro.sorokovsky.schoolmanagerbackend.contract.passport.CreatePassport;
 import pro.sorokovsky.schoolmanagerbackend.entity.EmployeeEntity;
 import pro.sorokovsky.schoolmanagerbackend.entity.PassportEntity;
@@ -114,10 +114,18 @@ public class EmployeesService {
     }
 
     public void delete(Integer id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
-        } else {
-            throw new EmployeeNotFoundException();
+        try {
+            if (repository.existsById(id)) {
+                repository.deleteById(id);
+            } else {
+                throw new EmployeeNotFoundException();
+            }
+        } catch (DataIntegrityViolationException exception) {
+            var message = exception.getMostSpecificCause().getMessage();
+            System.out.println(message);
+            if (message.contains("REFERENCE") && message.contains("Curator")) {
+                throw new CuratorException();
+            }
         }
     }
 
