@@ -172,6 +172,11 @@ public class PupilsController {
                 .build();
     }
 
+    @GetMapping("by-parent/{id}")
+    public ResponseEntity<List<GetPupil>> getByParent(@PathVariable Integer id) {
+        return ResponseEntity.ok(service.getByParent(id).stream().map(mapper::toGet).toList());
+    }
+
     @Operation(summary = "Видалення учня", description = "Видаляє учня")
     @ApiResponses(value = {
             @ApiResponse(
